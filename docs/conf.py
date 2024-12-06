@@ -84,6 +84,9 @@ napoleon_use_rtype = True
 # ReadTheDocs specific settings
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
-# Generate .pot files during build
+# Translation settings
 gettext_auto_build = True
 gettext_languages = ['ru']
+gettext_enable_windows_help = False
+gettext_location = True
+gettext_compact = False
