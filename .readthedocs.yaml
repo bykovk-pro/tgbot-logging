@@ -30,3 +30,8 @@ python:
 submodules:
   include: all
   recursive: true
+
+# Translations configuration
+translations:
+  en: English
+  ru: Russian

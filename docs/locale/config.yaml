@@ -1,0 +1,12 @@
+languages:
+  en:
+    name: English
+    url: /en/latest/
+    title: English
+  ru:
+    name: Русский
+    url: /ru/latest/
+    title: Russian
+
+default_language: en
+translations_pattern: locale/{lang}/LC_MESSAGES/{basename}.po 

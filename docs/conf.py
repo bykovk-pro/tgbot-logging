@@ -14,6 +14,13 @@ gettext_compact = False
 gettext_uuid = True
 gettext_additional_targets = ['literal-block', 'image']
 
+# Available languages
+languages = ['en', 'ru']
+language_mapping = {
+    'en': 'English',
+    'ru': 'Русский'
+}
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
@@ -101,6 +108,12 @@ napoleon_type_aliases = None
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 if on_rtd:
+    html_context = {
+        'current_language': language,
+        'languages': languages,
+        'language_mapping': language_mapping,
+        'canonical_url': 'https://tgbot-logging.readthedocs.io/',
+    }
     html_theme = 'sphinx_rtd_theme'
 else:
     html_theme = 'sphinx_rtd_theme' 
