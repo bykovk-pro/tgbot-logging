@@ -1,0 +1,7 @@
+# Sphinx
+sphinx>=4.0.0
+sphinx-rtd-theme>=1.0.0
+sphinx-autodoc-typehints>=1.11.1
+
+# Project dependencies
+python-telegram-bot>=20.0 

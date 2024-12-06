@@ -13,6 +13,8 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.intersphinx',
     'sphinx_rtd_theme',
+    'sphinx.ext.githubpages',
+    'sphinx_autodoc_typehints',
 ]
 
 templates_path = ['_templates']
@@ -24,4 +26,21 @@ html_static_path = ['_static']
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
     'telegram': ('https://python-telegram-bot.readthedocs.io/en/stable/', None),
-} 
+}
+
+html_theme_options = {
+    'logo_only': False,
+    'display_version': True,
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': True,
+    'style_nav_header_background': '#2980B9',
+    'collapse_navigation': False,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+    'includehidden': True,
+    'titles_only': False
+}
+
+autodoc_member_order = 'bysource'
+autodoc_typehints = 'description'
+add_module_names = False 
