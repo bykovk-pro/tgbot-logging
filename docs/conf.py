@@ -42,11 +42,13 @@ if language == 'ru':
     copyright = '2024, Кирилл Быков'
     author = 'Кирилл Быков'
 
+# Intersphinx mapping
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
     'telegram': ('https://python-telegram-bot.readthedocs.io/en/stable/', None),
 }
 
+# Theme options
 html_theme_options = {
     'logo_only': False,
     'display_version': True,
@@ -65,13 +67,6 @@ html_theme_options = {
 autodoc_member_order = 'bysource'
 autodoc_typehints = 'description'
 add_module_names = False
-autodoc_default_options = {
-    'members': True,
-    'member-order': 'bysource',
-    'special-members': '__init__',
-    'undoc-members': True,
-    'exclude-members': '__weakref__'
-}
 
 # Napoleon settings
 napoleon_google_docstring = True
@@ -85,7 +80,10 @@ napoleon_use_admonition_for_references = True
 napoleon_use_ivar = True
 napoleon_use_param = True
 napoleon_use_rtype = True
-napoleon_type_aliases = None
 
 # ReadTheDocs specific settings
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True' 
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
+# Generate .pot files during build
+gettext_auto_build = True
+gettext_languages = ['ru']

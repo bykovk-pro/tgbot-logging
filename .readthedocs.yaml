@@ -4,11 +4,6 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.11"
-  jobs:
-    pre_build:
-      - pip install sphinx-intl
-      - python -m sphinx.cmd.build -b gettext docs/ docs/_build/gettext
-      - sphinx-intl update -p docs/_build/gettext -l ru
 
 sphinx:
   configuration: docs/conf.py
@@ -21,6 +16,7 @@ formats:
 
 python:
   install:
+    - requirements: docs/requirements.txt
     - method: pip
       path: .
       extra_requirements:
@@ -31,22 +27,15 @@ submodules:
   include: all
   recursive: true
 
-# Version configuration
-versions:
-  - main
-  - dev
-  - /v\d+\.\d+\.\d+/
-
 # Language configuration
+sphinx:
+  builder: dirhtml
+  configuration: docs/conf.py
+  fail_on_warning: false
+
 languages:
-  - locale: en
-    versions:
-      - main
-      - dev
-  - locale: ru
-    versions:
-      - main
-      - dev
+  en: default
+  ru: true
 
 # Domain configuration
 domains:
