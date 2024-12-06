@@ -47,3 +47,10 @@ languages:
     versions:
       - main
       - dev
+
+# Domain configuration
+domains:
+  - name: docs.bykovk.pro
+    https: true
+    enforce_https: true
+    canonical: true

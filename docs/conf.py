@@ -33,6 +33,9 @@ html_show_sourcelink = True
 html_show_sphinx = True
 html_show_copyright = True
 
+# Domain settings
+html_baseurl = 'https://docs.bykovk.pro/'
+
 # Language-specific options
 if language == 'ru':
     project = 'TGBot-Logging'
@@ -55,7 +58,7 @@ html_theme_options = {
     'navigation_depth': 4,
     'includehidden': True,
     'titles_only': False,
-    'canonical_url': 'https://tgbot-logging.readthedocs.io/',
+    'canonical_url': 'https://docs.bykovk.pro/',
 }
 
 # Autodoc settings

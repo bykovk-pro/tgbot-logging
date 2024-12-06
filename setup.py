@@ -14,7 +14,7 @@ setup(
     url="https://github.com/bykovk-pro/tgbot-logging",
     project_urls={
         "Bug Tracker": "https://github.com/bykovk-pro/tgbot-logging/issues",
-        "Documentation": "https://github.com/bykovk-pro/tgbot-logging/docs",
+        "Documentation": "https://docs.bykovk.pro/",
         "Source Code": "https://github.com/bykovk-pro/tgbot-logging",
     },
     classifiers=[
