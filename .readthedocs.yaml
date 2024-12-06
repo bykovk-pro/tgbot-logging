@@ -1,14 +1,5 @@
 version: 2
 
-# Project information
-project:
-  name: TGBot-Logging
-  default_version: latest
-  default_language: en
-  languages:
-    - en
-    - ru
-
 build:
   os: ubuntu-22.04
   tools:
@@ -19,6 +10,8 @@ build:
     pre_build:
       - sphinx-build -b gettext docs/ docs/_build/gettext
       - sphinx-intl update -p docs/_build/gettext -l ru
+  apt_packages:
+    - gettext
 
 sphinx:
   configuration: docs/conf.py

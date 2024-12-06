@@ -90,3 +90,14 @@ gettext_languages = ['ru']
 gettext_enable_windows_help = False
 gettext_location = True
 gettext_compact = False
+
+# Set up language switcher
+html_context = {
+    'languages': [
+        ('en', 'English'),
+        ('ru', 'Русский'),
+    ],
+    'language': language,
+    'current_language': language,
+    'current_version': release,
+}
