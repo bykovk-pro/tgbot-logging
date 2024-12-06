@@ -1,0 +1,99 @@
+# Russian translations for TGBot-Logging.
+# Copyright (C) 2024 Kirill Bykov
+# This file is distributed under the same license as the TGBot-Logging project.
+msgid ""
+msgstr ""
+"Project-Id-Version: TGBot-Logging 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-06 12:00+0000\n"
+"PO-Revision-Date: 2024-01-06 12:00+0000\n"
+"Last-Translator: Kirill Bykov <me@bykovk.pro>\n"
+"Language-Team: Russian <me@bykovk.pro>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+msgid "Quick Start Guide"
+msgstr "Руководство по быстрому старту"
+
+msgid "This guide will help you get started with TGBot-Logging quickly."
+msgstr "Это руководство поможет вам быстро начать работу с TGBot-Logging."
+
+msgid "Setup"
+msgstr "Настройка"
+
+msgid "Create a Telegram bot:"
+msgstr "Создайте бота в Telegram:"
+
+msgid "Open @BotFather in Telegram"
+msgstr "Откройте @BotFather в Telegram"
+
+msgid "Send /newbot command"
+msgstr "Отправьте команду /newbot"
+
+msgid "Follow instructions to create a bot"
+msgstr "Следуйте инструкциям для создания бота"
+
+msgid "Copy the bot token (it looks like 123456789:ABCdefGHIjklmNOPqrstUVwxyz)"
+msgstr "Скопируйте токен бота (он выглядит как 123456789:ABCdefGHIjklmNOPqrstUVwxyz)"
+
+msgid "Get your chat ID:"
+msgstr "Получите ID вашего чата:"
+
+msgid "Start a chat with your bot"
+msgstr "Начните чат с вашим ботом"
+
+msgid "Send any message to the bot"
+msgstr "Отправьте любое сообщение боту"
+
+msgid "Open @userinfobot"
+msgstr "Откройте @userinfobot"
+
+msgid "Copy your chat ID (it's a number like 123456789)"
+msgstr "Скопируйте ID вашего чата (это число, например 123456789)"
+
+msgid "Configure environment variables:"
+msgstr "Настройте переменные окружения:"
+
+msgid "Copy .env.example to .env"
+msgstr "Скопируйте .env.example в .env"
+
+msgid "Replace placeholder values with your actual credentials"
+msgstr "Замените значения-заполнители на ваши реальные учетные данные"
+
+msgid "Never commit .env file to version control"
+msgstr "Никогда не коммитьте файл .env в систему контроля версий"
+
+msgid "Basic Usage"
+msgstr "Базовое использование"
+
+msgid "Here's a minimal example to get you started:"
+msgstr "Вот минимальный пример для начала работы:"
+
+msgid "Using Environment Variables"
+msgstr "Использование переменных окружения"
+
+msgid "You can use environment variables for configuration:"
+msgstr "Вы можете использовать переменные окружения для конфигурации:"
+
+msgid "Message Formatting"
+msgstr "Форматирование сообщений"
+
+msgid "HTML Formatting:"
+msgstr "HTML форматирование:"
+
+msgid "MarkdownV2 Formatting:"
+msgstr "MarkdownV2 форматирование:"
+
+msgid "Next Steps"
+msgstr "Следующие шаги"
+
+msgid "Check out the configuration section for detailed configuration options"
+msgstr "Ознакомьтесь с разделом конфигурации для подробных настроек"
+
+msgid "See examples for more advanced usage examples"
+msgstr "Посмотрите примеры для более продвинутого использования"
+
+msgid "Read the api documentation for complete API reference"
+msgstr "Прочитайте документацию API для полного справочника по API" 

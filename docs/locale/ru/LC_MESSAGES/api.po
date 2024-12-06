@@ -1,0 +1,141 @@
+# Russian translations for TGBot-Logging.
+# Copyright (C) 2024 Kirill Bykov
+# This file is distributed under the same license as the TGBot-Logging project.
+msgid ""
+msgstr ""
+"Project-Id-Version: TGBot-Logging 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-06 12:00+0000\n"
+"PO-Revision-Date: 2024-01-06 12:00+0000\n"
+"Last-Translator: Kirill Bykov <me@bykovk.pro>\n"
+"Language-Team: Russian <me@bykovk.pro>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+msgid "API Reference"
+msgstr "Справочник API"
+
+msgid "This section provides detailed API documentation for the TGBot-Logging package."
+msgstr "Этот раздел содержит подробную документацию по API пакета TGBot-Logging."
+
+msgid "TelegramHandler"
+msgstr "TelegramHandler"
+
+msgid "Configuration Options"
+msgstr "Параметры конфигурации"
+
+msgid "The TelegramHandler class accepts the following parameters:"
+msgstr "Класс TelegramHandler принимает следующие параметры:"
+
+msgid "Required Parameters"
+msgstr "Обязательные параметры"
+
+msgid "Telegram Bot API token obtained from @BotFather"
+msgstr "Токен Telegram Bot API, полученный от @BotFather"
+
+msgid "Single chat ID or list of chat IDs where messages will be sent"
+msgstr "Один ID чата или список ID чатов, куда будут отправляться сообщения"
+
+msgid "Optional Parameters"
+msgstr "Необязательные параметры"
+
+msgid "Minimum logging level (default: logging.NOTSET)"
+msgstr "Минимальный уровень логирования (по умолчанию: logging.NOTSET)"
+
+msgid "Message format string (default: None)"
+msgstr "Строка формата сообщения (по умолчанию: None)"
+
+msgid "Message parse mode ('HTML', 'MarkdownV2', None) (default: 'HTML')"
+msgstr "Режим разбора сообщения ('HTML', 'MarkdownV2', None) (по умолчанию: 'HTML')"
+
+msgid "Number of messages to batch before sending (default: 1)"
+msgstr "Количество сообщений для пакетной отправки (по умолчанию: 1)"
+
+msgid "Maximum time to wait before sending a batch (seconds) (default: 1.0)"
+msgstr "Максимальное время ожидания перед отправкой пакета (секунды) (по умолчанию: 1.0)"
+
+msgid "Maximum number of retries for failed messages (default: 3)"
+msgstr "Максимальное количество повторных попыток для неудачных сообщений (по умолчанию: 3)"
+
+msgid "Delay between retries (seconds) (default: 1.0)"
+msgstr "Задержка между повторными попытками (секунды) (по умолчанию: 1.0)"
+
+msgid "Project name to identify logs source (default: None)"
+msgstr "Имя проекта для идентификации источника логов (по умолчанию: None)"
+
+msgid "Emoji to use for project (default: '🔷')"
+msgstr "Эмодзи для проекта (по умолчанию: '🔷')"
+
+msgid "Whether to add project hashtag to messages (default: True)"
+msgstr "Добавлять ли хэштег проекта к сообщениям (по умолчанию: True)"
+
+msgid "Custom message format function (default: None)"
+msgstr "Пользовательская функция форматирования сообщений (по умолчанию: None)"
+
+msgid "Custom emoji mapping for log levels (default: None)"
+msgstr "Пользовательское сопоставление эмодзи для уровней логирования (по умолчанию: None)"
+
+msgid "Whether to include project name in message (default: True)"
+msgstr "Включать ли имя проекта в сообщение (по умолчанию: True)"
+
+msgid "Whether to include level emoji (default: True)"
+msgstr "Включать ли эмодзи уровня (по умолчанию: True)"
+
+msgid "Custom date format for timestamps (default: None)"
+msgstr "Пользовательский формат даты для временных меток (по умолчанию: None)"
+
+msgid "Default Level Emojis"
+msgstr "Эмодзи уровней по умолчанию"
+
+msgid "The handler comes with default emojis for different log levels:"
+msgstr "Обработчик поставляется с эмодзи по умолчанию для разных уровней логирования:"
+
+msgid "Custom Message Formatting"
+msgstr "Пользовательское форматирование сообщений"
+
+msgid "You can provide a custom message formatting function:"
+msgstr "Вы можете предоставить пользовательскую функцию форматирования сообщений:"
+
+msgid "Custom message formatting function."
+msgstr "Пользовательская функция форматирования сообщений."
+
+msgid "Args:"
+msgstr "Аргументы:"
+
+msgid "The logging record"
+msgstr "Запись логирования"
+
+msgid "Dictionary with formatting context"
+msgstr "Словарь с контекстом форматирования"
+
+msgid "Returns:"
+msgstr "Возвращает:"
+
+msgid "str: Formatted message"
+msgstr "str: Отформатированное сообщение"
+
+msgid "The context dictionary provides:"
+msgstr "Словарь контекста предоставляет:"
+
+msgid "Error Handling"
+msgstr "Обработка ошибок"
+
+msgid "The handler includes built-in error handling for:"
+msgstr "Обработчик включает встроенную обработку ошибок для:"
+
+msgid "Rate limiting (RetryAfter)"
+msgstr "Ограничение частоты (RetryAfter)"
+
+msgid "Network timeouts"
+msgstr "Сетевые таймауты"
+
+msgid "Message sending failures"
+msgstr "Ошибки отправки сообщений"
+
+msgid "Invalid tokens or chat IDs"
+msgstr "Недействительные токены или ID чатов"
+
+msgid "All errors are handled gracefully with automatic retries where appropriate."
+msgstr "Все ошибки обрабатываются корректно с автоматическими повторными попытками, где это уместно." 

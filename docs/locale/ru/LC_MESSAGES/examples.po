@@ -1,0 +1,99 @@
+# Russian translations for TGBot-Logging.
+# Copyright (C) 2024 Kirill Bykov
+# This file is distributed under the same license as the TGBot-Logging project.
+msgid ""
+msgstr ""
+"Project-Id-Version: TGBot-Logging 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-06 12:00+0000\n"
+"PO-Revision-Date: 2024-01-06 12:00+0000\n"
+"Last-Translator: Kirill Bykov <me@bykovk.pro>\n"
+"Language-Team: Russian <me@bykovk.pro>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+msgid "Examples"
+msgstr "Примеры"
+
+msgid "Basic Usage"
+msgstr "Базовое использование"
+
+msgid "Here's a basic example of using TGBot-Logging:"
+msgstr "Вот базовый пример использования TGBot-Logging:"
+
+msgid "Custom Formatting"
+msgstr "Пользовательское форматирование"
+
+msgid "You can customize the message format using HTML or MarkdownV2:"
+msgstr "Вы можете настроить формат сообщения, используя HTML или MarkdownV2:"
+
+msgid "HTML Example"
+msgstr "Пример HTML"
+
+msgid "MarkdownV2 Example"
+msgstr "Пример MarkdownV2"
+
+msgid "Message Batching"
+msgstr "Пакетная отправка сообщений"
+
+msgid "To improve performance, you can batch multiple messages:"
+msgstr "Для улучшения производительности вы можете отправлять сообщения пакетами:"
+
+msgid "Environment Variables"
+msgstr "Переменные окружения"
+
+msgid "Using environment variables for configuration:"
+msgstr "Использование переменных окружения для конфигурации:"
+
+msgid "Custom Error Handling"
+msgstr "Пользовательская обработка ошибок"
+
+msgid "Example of custom error handling:"
+msgstr "Пример пользовательской обработки ошибок:"
+
+msgid "Advanced Features"
+msgstr "Расширенные возможности"
+
+msgid "Multiple Chat IDs"
+msgstr "Несколько ID чатов"
+
+msgid "You can send logs to multiple Telegram chats:"
+msgstr "Вы можете отправлять логи в несколько чатов Telegram:"
+
+msgid "Custom Emoji Mapping"
+msgstr "Пользовательское сопоставление эмодзи"
+
+msgid "Define your own emojis for log levels:"
+msgstr "Определите свои собственные эмодзи для уровней логирования:"
+
+msgid "Custom Message Formatter"
+msgstr "Пользовательский форматировщик сообщений"
+
+msgid "Create a custom message formatter function:"
+msgstr "Создайте пользовательскую функцию форматирования сообщений:"
+
+msgid "Async Usage"
+msgstr "Асинхронное использование"
+
+msgid "Using TGBot-Logging in async applications:"
+msgstr "Использование TGBot-Logging в асинхронных приложениях:"
+
+msgid "Testing Examples"
+msgstr "Примеры тестирования"
+
+msgid "Example of testing with TGBot-Logging:"
+msgstr "Пример тестирования с TGBot-Logging:"
+
+msgid "Production Configuration"
+msgstr "Конфигурация для продакшена"
+
+msgid "Example of a production-ready configuration:"
+msgstr "Пример конфигурации, готовой к продакшену:"
+
+msgid "Development Configuration"
+msgstr "Конфигурация для разработки"
+
+msgid "Example of a development configuration:"
+msgstr "Пример конфигурации для разработки:" 
