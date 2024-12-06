@@ -52,6 +52,7 @@ setup(
         "docs": [
             "sphinx>=4.0.0",
             "sphinx-rtd-theme>=1.0.0",
+            "sphinx-autodoc-typehints>=1.12.0",
         ],
         # Build and distribution dependencies
         "build": [
@@ -67,6 +68,7 @@ setup(
             "flake8>=3.9",
             "sphinx>=4.0.0",
             "sphinx-rtd-theme>=1.0.0",
+            "sphinx-autodoc-typehints>=1.12.0",
             "wheel>=0.37.0",
             "twine>=3.4.0",
         ],
