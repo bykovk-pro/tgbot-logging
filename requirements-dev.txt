@@ -1,16 +1,25 @@
 # Testing
-pytest>=6.0
-pytest-asyncio>=0.14.0
+pytest>=7.4.3
+pytest-asyncio>=0.23.2
+pytest-cov>=4.1.0
 
 # Code style
-black>=21.0
-isort>=5.0
-flake8>=3.9
+black>=23.11.0
+isort>=5.13.0
+flake8>=6.1.0
+pylint>=3.0.2
+mypy>=1.7.1
 
 # Documentation
-sphinx>=4.0.0
-sphinx-rtd-theme>=1.0.0
+sphinx>=7.1.2
+sphinx-rtd-theme>=2.0.0
+sphinx-autodoc-typehints>=1.25.2
 
 # Build and distribution
-wheel>=0.37.0
-twine>=3.4.0 
+wheel>=0.42.0
+twine>=4.0.2
+build>=1.0.3
+
+# Security
+bandit>=1.7.5
+safety>=2.3.5 

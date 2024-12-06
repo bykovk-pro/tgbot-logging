@@ -5,7 +5,8 @@ sphinx-autodoc-typehints==1.25.2
 sphinx-intl==2.1.0
 
 # Project dependencies
-python-telegram-bot>=20.0
+python-telegram-bot>=21.0.1
+httpx>=0.25.2
 
 # Build tools
 babel==2.14.0
