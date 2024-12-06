@@ -14,13 +14,6 @@ gettext_compact = False
 gettext_uuid = True
 gettext_additional_targets = ['literal-block', 'image']
 
-# Available languages
-languages = ['en', 'ru']
-language_mapping = {
-    'en': 'English',
-    'ru': 'Русский'
-}
-
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
@@ -41,23 +34,10 @@ html_show_sphinx = True
 html_show_copyright = True
 
 # Language-specific options
-language_options = {
-    'en': {
-        'project': 'TGBot-Logging',
-        'copyright': '2024, Kirill Bykov',
-        'author': 'Kirill Bykov',
-    },
-    'ru': {
-        'project': 'TGBot-Logging',
-        'copyright': '2024, Кирилл Быков',
-        'author': 'Кирилл Быков',
-    }
-}
-
-# Set language-specific options if language is set
-if language in language_options:
-    for key, value in language_options[language].items():
-        globals()[key] = value
+if language == 'ru':
+    project = 'TGBot-Logging'
+    copyright = '2024, Кирилл Быков'
+    author = 'Кирилл Быков'
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
@@ -105,15 +85,4 @@ napoleon_use_rtype = True
 napoleon_type_aliases = None
 
 # ReadTheDocs specific settings
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-
-if on_rtd:
-    html_context = {
-        'current_language': language,
-        'languages': languages,
-        'language_mapping': language_mapping,
-        'canonical_url': 'https://tgbot-logging.readthedocs.io/',
-    }
-    html_theme = 'sphinx_rtd_theme'
-else:
-    html_theme = 'sphinx_rtd_theme' 
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True' 
