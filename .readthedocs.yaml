@@ -30,3 +30,20 @@ python:
 submodules:
   include: all
   recursive: true
+
+# Version configuration
+versions:
+  - main
+  - dev
+  - /v\d+\.\d+\.\d+/
+
+# Language configuration
+languages:
+  - locale: en
+    versions:
+      - main
+      - dev
+  - locale: ru
+    versions:
+      - main
+      - dev
