@@ -7,6 +7,12 @@ build:
 
 sphinx:
   configuration: docs/conf.py
+  fail_on_warning: false
+
+# Build documentation in additional languages
+languages:
+   - en
+   - ru
 
 python:
   install:

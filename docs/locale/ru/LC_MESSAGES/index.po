@@ -1,0 +1,66 @@
+# Russian translations for TGBot-Logging.
+# Copyright (C) 2024 Kirill Bykov
+# This file is distributed under the same license as the TGBot-Logging project.
+msgid ""
+msgstr ""
+"Project-Id-Version: TGBot-Logging 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-06 12:00+0000\n"
+"PO-Revision-Date: 2024-01-06 12:00+0000\n"
+"Last-Translator: Kirill Bykov <me@bykovk.pro>\n"
+"Language-Team: Russian <me@bykovk.pro>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+msgid "Welcome to TGBot-Logging's documentation!"
+msgstr "Добро пожаловать в документацию TGBot-Logging!"
+
+msgid "TGBot-Logging is a Python logging handler that sends log messages to Telegram chats."
+msgstr "TGBot-Logging - это обработчик логирования Python, который отправляет сообщения логов в чаты Telegram."
+
+msgid "Features"
+msgstr "Возможности"
+
+msgid "Send log messages to one or multiple Telegram chats"
+msgstr "Отправка сообщений логов в один или несколько чатов Telegram"
+
+msgid "Support for HTML and MarkdownV2 formatting"
+msgstr "Поддержка форматирования HTML и MarkdownV2"
+
+msgid "Message batching for better performance"
+msgstr "Пакетная отправка сообщений для лучшей производительности"
+
+msgid "Automatic retries for failed messages"
+msgstr "Автоматические повторные попытки для неудачных сообщений"
+
+msgid "Customizable log format"
+msgstr "Настраиваемый формат логов"
+
+msgid "Environment variables support"
+msgstr "Поддержка переменных окружения"
+
+msgid "Contents"
+msgstr "Содержание"
+
+msgid "Installation"
+msgstr "Установка"
+
+msgid "Basic Installation (Production)"
+msgstr "Базовая установка (для продакшена)"
+
+msgid "Development Installation"
+msgstr "Установка для разработки"
+
+msgid "Documentation Tools"
+msgstr "Инструменты документации"
+
+msgid "Build Tools"
+msgstr "Инструменты сборки"
+
+msgid "Full Installation"
+msgstr "Полная установка"
+
+msgid "Indices and tables"
+msgstr "Индексы и таблицы" 

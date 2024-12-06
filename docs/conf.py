@@ -7,6 +7,12 @@ copyright = '2024, Kirill Bykov'
 author = 'Kirill Bykov'
 release = '0.1.0'
 
+# Internationalization settings
+language = 'en'  # Default language
+locale_dirs = ['locale/']  # path is example but recommended
+gettext_compact = False  # optional
+gettext_uuid = True  # optional
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
@@ -22,6 +28,25 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+
+# Language-specific options
+language_options = {
+    'en': {
+        'project': 'TGBot-Logging',
+        'copyright': '2024, Kirill Bykov',
+        'author': 'Kirill Bykov',
+    },
+    'ru': {
+        'project': 'TGBot-Logging',
+        'copyright': '2024, Кирилл Быков',
+        'author': 'Кирилл Быков',
+    }
+}
+
+# Set language-specific options if language is set
+if language in language_options:
+    for key, value in language_options[language].items():
+        globals()[key] = value
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
