@@ -6,6 +6,7 @@ build:
     python: "3.11"
   jobs:
     pre_build:
+      - pip install sphinx-intl
       - python -m sphinx.cmd.build -b gettext docs/ docs/_build/gettext
       - sphinx-intl update -p docs/_build/gettext -l ru
 
