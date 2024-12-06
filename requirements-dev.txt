@@ -1,0 +1,16 @@
+# Testing
+pytest>=6.0
+pytest-asyncio>=0.14.0
+
+# Code style
+black>=21.0
+isort>=5.0
+flake8>=3.9
+
+# Documentation
+sphinx>=4.0.0
+sphinx-rtd-theme>=1.0.0
+
+# Build and distribution
+wheel>=0.37.0
+twine>=3.4.0 
