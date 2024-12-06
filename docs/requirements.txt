@@ -1,26 +1,36 @@
-# Sphinx and extensions
-sphinx>=4.0.0
-sphinx-rtd-theme>=1.0.0
-sphinx-autodoc-typehints>=1.11.1
-sphinx-intl>=2.0.1
+# Core Sphinx
+sphinx==7.1.2
+sphinx-rtd-theme==2.0.0
+sphinx-autodoc-typehints==1.25.2
+sphinx-intl==2.1.0
 
 # Project dependencies
 python-telegram-bot>=20.0
 
 # Build tools
-babel>=2.9.1
-jinja2>=3.0.0
-markupsafe>=2.0.0
-docutils>=0.17.0
-pygments>=2.10.0
-snowballstemmer>=2.1.0
-alabaster>=0.7.12
-imagesize>=1.2.0
-requests>=2.26.0
-packaging>=21.0
-sphinxcontrib-applehelp>=1.0.2
-sphinxcontrib-devhelp>=1.0.2
-sphinxcontrib-htmlhelp>=2.0.0
-sphinxcontrib-jsmath>=1.0.1
-sphinxcontrib-qthelp>=1.0.3
-sphinxcontrib-serializinghtml>=1.1.5
+babel==2.14.0
+jinja2==3.1.2
+markupsafe==2.1.3
+docutils==0.20.1
+pygments==2.17.2
+snowballstemmer==2.2.0
+alabaster==0.7.13
+imagesize==1.4.1
+requests==2.31.0
+packaging==23.2
+
+# Sphinx extensions
+sphinxcontrib-applehelp==1.0.7
+sphinxcontrib-devhelp==1.0.5
+sphinxcontrib-htmlhelp==2.0.4
+sphinxcontrib-jsmath==1.0.1
+sphinxcontrib-qthelp==1.0.6
+sphinxcontrib-serializinghtml==1.1.9
+
+# Additional tools
+click==8.1.7
+colorama==0.4.6
+urllib3==2.1.0
+certifi==2023.11.17
+charset-normalizer==3.3.2
+idna==3.6

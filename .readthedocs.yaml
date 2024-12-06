@@ -4,18 +4,20 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.11"
+  jobs:
+    post_checkout:
+      - git fetch --unshallow || true
+      - git fetch origin dev:dev
+      - git checkout dev
 
 sphinx:
   configuration: docs/conf.py
   fail_on_warning: false
   builder: html
-  i18n:
-    language:
-      - en
-      - ru
-    build:
-      - en
-      - ru
+
+formats:
+  - pdf
+  - epub
 
 python:
   install:
@@ -23,3 +25,8 @@ python:
       path: .
       extra_requirements:
         - docs
+
+# Submodules configuration
+submodules:
+  include: all
+  recursive: true

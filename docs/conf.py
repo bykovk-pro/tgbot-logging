@@ -29,6 +29,9 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+html_show_sourcelink = True
+html_show_sphinx = True
+html_show_copyright = True
 
 # Language-specific options
 language_options = {
@@ -65,8 +68,6 @@ html_theme_options = {
     'navigation_depth': 4,
     'includehidden': True,
     'titles_only': False,
-    'display_version': True,
-    'prev_next_buttons_location': 'bottom',
     'canonical_url': 'https://tgbot-logging.readthedocs.io/',
 }
 
@@ -74,6 +75,13 @@ html_theme_options = {
 autodoc_member_order = 'bysource'
 autodoc_typehints = 'description'
 add_module_names = False
+autodoc_default_options = {
+    'members': True,
+    'member-order': 'bysource',
+    'special-members': '__init__',
+    'undoc-members': True,
+    'exclude-members': '__weakref__'
+}
 
 # Napoleon settings
 napoleon_google_docstring = True
@@ -87,4 +95,12 @@ napoleon_use_admonition_for_references = True
 napoleon_use_ivar = True
 napoleon_use_param = True
 napoleon_use_rtype = True
-napoleon_type_aliases = None 
+napoleon_type_aliases = None
+
+# ReadTheDocs specific settings
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
+if on_rtd:
+    html_theme = 'sphinx_rtd_theme'
+else:
+    html_theme = 'sphinx_rtd_theme' 
