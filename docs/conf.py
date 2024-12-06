@@ -8,10 +8,11 @@ author = 'Kirill Bykov'
 release = '0.1.0'
 
 # Internationalization settings
-language = 'en'  # Default language
-locale_dirs = ['locale/']  # path is example but recommended
-gettext_compact = False  # optional
-gettext_uuid = True  # optional
+language = os.getenv('READTHEDOCS_LANGUAGE', 'en')
+locale_dirs = ['locale/']
+gettext_compact = False
+gettext_uuid = True
+gettext_additional_targets = ['literal-block', 'image']
 
 extensions = [
     'sphinx.ext.autodoc',
@@ -63,9 +64,27 @@ html_theme_options = {
     'sticky_navigation': True,
     'navigation_depth': 4,
     'includehidden': True,
-    'titles_only': False
+    'titles_only': False,
+    'display_version': True,
+    'prev_next_buttons_location': 'bottom',
+    'canonical_url': 'https://tgbot-logging.readthedocs.io/',
 }
 
+# Autodoc settings
 autodoc_member_order = 'bysource'
 autodoc_typehints = 'description'
-add_module_names = False 
+add_module_names = False
+
+# Napoleon settings
+napoleon_google_docstring = True
+napoleon_numpy_docstring = True
+napoleon_include_init_with_doc = True
+napoleon_include_private_with_doc = False
+napoleon_include_special_with_doc = True
+napoleon_use_admonition_for_examples = True
+napoleon_use_admonition_for_notes = True
+napoleon_use_admonition_for_references = True
+napoleon_use_ivar = True
+napoleon_use_param = True
+napoleon_use_rtype = True
+napoleon_type_aliases = None 

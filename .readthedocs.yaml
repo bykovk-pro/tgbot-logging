@@ -8,15 +8,18 @@ build:
 sphinx:
   configuration: docs/conf.py
   fail_on_warning: false
-
-# Build documentation in additional languages
-languages:
-   - en
-   - ru
+  builder: html
+  i18n:
+    language:
+      - en
+      - ru
+    build:
+      - en
+      - ru
 
 python:
   install:
     - method: pip
       path: .
       extra_requirements:
-        - docs 
+        - docs
