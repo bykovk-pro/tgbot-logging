@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="tgbot-logging",
-    version="1.0.0",
+    version="1.0.1",
     author="Kirill Bykov",
     author_email="me@bykovk.pro",
     description="A Python logging handler that sends log messages to Telegram chats",
@@ -18,7 +18,7 @@ setup(
         "Source Code": "https://github.com/bykovk-pro/tgbot-logging",
     },
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
