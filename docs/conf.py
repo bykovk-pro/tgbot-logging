@@ -78,3 +78,30 @@ napoleon_use_admonition_for_references = True
 napoleon_use_ivar = True
 napoleon_use_param = True
 napoleon_use_rtype = True
+
+# Type hints settings
+typehints_fully_qualified = False
+always_document_param_types = True
+typehints_document_rtype = True
+
+# HTML settings
+html_title = f"{project} v{release} documentation"
+html_short_title = project
+html_favicon = '_static/favicon.ico'
+html_logo = '_static/logo.png'
+html_css_files = [
+    'custom.css',
+]
+
+# Additional settings
+nitpicky = True
+nitpick_ignore = [
+    ('py:class', 'telegram.Bot'),
+    ('py:class', 'telegram.error.TelegramError'),
+    ('py:class', 'telegram.error.RetryAfter'),
+    ('py:class', 'telegram.error.TimedOut'),
+    ('py:class', 'telegram.error.InvalidToken'),
+]
+
+# Logging settings
+suppress_warnings = ['app.add_node']

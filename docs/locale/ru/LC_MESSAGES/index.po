@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TGBot-Logging 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-07 12:06+0100\n"
-"PO-Revision-Date: 2024-01-06 12:00+0000\n"
+"POT-Creation-Date: 2024-01-20 14:30+0300\n"
+"PO-Revision-Date: 2024-01-20 14:30+0300\n"
 "Last-Translator: Kirill Bykov <me@bykovk.pro>\n"
 "Language-Team: Russian <me@bykovk.pro>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.16.0\n"
+"Generated-By: Babel 2.14.0\n"
 
 #: ../../index.rst:20
 #, fuzzy
@@ -28,11 +28,10 @@ msgstr "Добро пожаловать в документацию TGBot-Loggin
 #, fuzzy
 msgid ""
 "TGBot-Logging is a Python logging handler that sends log messages to "
-"Telegram chats. It provides an easy way to integrate Telegram "
-"notifications into your application's logging system."
+"Telegram chats with advanced features like message batching, retries, and formatting."
 msgstr ""
-"TGBot-Logging - это обработчик логирования Python, который отправляет "
-"сообщения логов в чаты Telegram."
+"TGBot-Logging - это обработчик логирования для Python, который отправляет "
+"сообщения логов в чаты Telegram с продвинутыми функциями, такими как пакетная отправка, повторные попытки и форматирование."
 
 #: ../../index.rst:8 44a0ff60894649edaa267435fb583b0f
 msgid "Features"
@@ -55,24 +54,24 @@ msgid "Automatic retries for failed messages"
 msgstr "Автоматические повторные попытки для неудачных сообщений"
 
 #: ../../index.rst:14 448b69d16b37470e9ba2c5c062de453c
-msgid "Customizable log format"
-msgstr "Настраиваемый формат логов"
+msgid "Rate limiting and error handling"
+msgstr "Ограничение частоты и обработка ошибок"
 
 #: ../../index.rst:15 8cbb605bb6ec422b83ccf5d7add33769
-msgid "Asynchronous message sending"
-msgstr ""
+msgid "Customizable log format and emojis"
+msgstr "Настраиваемый формат логов и эмодзи"
 
 #: ../../index.rst:16 4c93549ba65a42c187419a85e39830f2
-msgid "Graceful error handling"
-msgstr ""
+msgid "Support for project names and hashtags"
+msgstr "Поддержка имен проектов и хэштегов"
 
 #: ../../index.rst:17 d79559ff338d4e64abdbc4de0b8287f1
-msgid "Cross-platform compatibility"
-msgstr ""
-
-#: ../../index.rst:18 f2f2240eed7f4316bc4bffaeb17d539c
 msgid "Environment variables support"
 msgstr "Поддержка переменных окружения"
+
+#: ../../index.rst:18 f2f2240eed7f4316bc4bffaeb17d539c
+msgid "Async/await support"
+msgstr "Поддержка async/await"
 
 #: ../../index.rst:33 3008659b97f8474ea1ca64bab2e87070
 msgid "Installation"
@@ -84,7 +83,7 @@ msgstr "Базовая установка (для продакшена)"
 
 #: ../../index.rst:38 452eb41adb66431db073eed02dc7e44c
 msgid "For basic usage in production environment:"
-msgstr ""
+msgstr "Для базового использования в продакшен-окружении:"
 
 #: ../../index.rst:40 91f41b8c8fc04bd29af9fe5a864ced72
 msgid "pip install tgbot-logging"
@@ -96,7 +95,7 @@ msgstr "Установка для разработки"
 
 #: ../../index.rst:47 f32b0c91a6a94a53807c5ce1a23ceeb2
 msgid "For development with testing tools and code formatting:"
-msgstr ""
+msgstr "Для разработки с инструментами тестирования и форматирования кода:"
 
 #: ../../index.rst:49 5f1850a4d9184469a87b8db9e9211056
 msgid ""
@@ -111,7 +110,7 @@ msgstr "Инструменты документации"
 
 #: ../../index.rst:58 abb677465f08420689cbef712d10af62
 msgid "For building documentation:"
-msgstr ""
+msgstr "Для сборки документации:"
 
 #: ../../index.rst:60 e84d9aa146fe46efa34be9263b150aa6
 msgid "pip install tgbot-logging[docs]"
@@ -123,7 +122,7 @@ msgstr "Инструменты сборки"
 
 #: ../../index.rst:67 ecbcf0d8b02249b3a807563d9b9a71d3
 msgid "For package building and distribution:"
-msgstr ""
+msgstr "Для сборки и распространения пакета:"
 
 #: ../../index.rst:69 8a54eea3866f47ffaac05ee3f2d26128
 msgid "pip install tgbot-logging[build]"
@@ -135,7 +134,7 @@ msgstr "Полная установка"
 
 #: ../../index.rst:76 c37b98a1a8a2480398298a35af8a573b
 msgid "For all optional dependencies:"
-msgstr ""
+msgstr "Для всех опциональных зависимостей:"
 
 #: ../../index.rst:78 f6e672de1f1b464fbf10eb9672e6d375
 msgid "pip install tgbot-logging[all]"
@@ -156,4 +155,91 @@ msgstr ""
 #: ../../index.rst:87 afb5f01a1a2d40d59955dcdbace0bee9
 msgid ":ref:`search`"
 msgstr ""
+
+msgid "Features in Detail"
+msgstr "Подробное описание возможностей"
+
+msgid "Message Formatting"
+msgstr "Форматирование сообщений"
+
+msgid "Custom message formats with templates"
+msgstr "Пользовательские форматы сообщений с шаблонами"
+
+msgid "Custom date/time formats"
+msgstr "Пользовательские форматы даты/времени"
+
+msgid "Project names and emojis"
+msgstr "Имена проектов и эмодзи"
+
+msgid "Automatic hashtags"
+msgstr "Автоматические хэштеги"
+
+msgid "Level-specific emojis"
+msgstr "Эмодзи для разных уровней логирования"
+
+msgid "Message Batching"
+msgstr "Пакетная отправка сообщений"
+
+msgid "Configurable batch size"
+msgstr "Настраиваемый размер пакета"
+
+msgid "Configurable batch interval"
+msgstr "Настраиваемый интервал пакетов"
+
+msgid "Automatic batch flushing"
+msgstr "Автоматическая отправка пакетов"
+
+msgid "Memory-efficient queue system"
+msgstr "Эффективная система очередей"
+
+msgid "Error Handling"
+msgstr "Обработка ошибок"
+
+msgid "Rate limit handling"
+msgstr "Обработка ограничений частоты"
+
+msgid "Network error handling"
+msgstr "Обработка сетевых ошибок"
+
+msgid "Timeout handling"
+msgstr "Обработка таймаутов"
+
+msgid "Graceful error recovery"
+msgstr "Плавное восстановление после ошибок"
+
+msgid "Performance"
+msgstr "Производительность"
+
+msgid "Asynchronous message sending"
+msgstr "Асинхронная отправка сообщений"
+
+msgid "Message batching"
+msgstr "Пакетная отправка сообщений"
+
+msgid "Rate limiting"
+msgstr "Ограничение частоты"
+
+msgid "Memory optimization"
+msgstr "Оптимизация памяти"
+
+msgid "Cross-platform compatibility"
+msgstr "Кроссплатформенная совместимость"
+
+msgid "Development Features"
+msgstr "Возможности для разработки"
+
+msgid "Type hints for better IDE support"
+msgstr "Подсказки типов для лучшей поддержки IDE"
+
+msgid "Comprehensive test suite (96% coverage)"
+msgstr "Полный набор тестов (96% покрытия)"
+
+msgid "Detailed documentation"
+msgstr "Подробная документация"
+
+msgid "Code style compliance (Black)"
+msgstr "Соответствие стилю кода (Black)"
+
+msgid "Security checks (Bandit)"
+msgstr "Проверки безопасности (Bandit)"
 
