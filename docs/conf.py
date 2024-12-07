@@ -35,9 +35,6 @@ html_show_sourcelink = True
 html_show_sphinx = True
 html_show_copyright = True
 
-# Domain settings
-html_baseurl = 'https://docs.bykovk.pro/'
-
 # Language-specific options
 if language == 'ru':
     project = 'TGBot-Logging'
@@ -81,16 +78,3 @@ napoleon_use_admonition_for_references = True
 napoleon_use_ivar = True
 napoleon_use_param = True
 napoleon_use_rtype = True
-
-# ReadTheDocs specific settings
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-
-# Set up language switcher
-html_context = {
-    'current_language': language,
-    'current_version': release,
-    'languages': [
-        ('en', '/en/latest/'),
-        ('ru', '/ru/latest/'),
-    ],
-}
