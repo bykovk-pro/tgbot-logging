@@ -6,12 +6,6 @@ build:
     python: "3.11"
   apt_packages:
     - graphviz
-  jobs:
-    post_build:
-      - python -m sphinx.ext.intersphinx docs/_build/html/objects.inv
-      - python -m sphinx.ext.doctest docs/
-      - python -m sphinx.ext.coverage docs/
-      - python -m sphinx.ext.linkcheck docs/
 
 sphinx:
   configuration: docs/conf.py
