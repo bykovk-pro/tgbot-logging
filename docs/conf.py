@@ -9,7 +9,7 @@ release = '0.1.0'
 
 # Internationalization settings
 language = os.getenv('READTHEDOCS_LANGUAGE', 'en')
-locale_dirs = ['locale/']
+locale_dirs = ['locale']
 gettext_compact = False
 gettext_uuid = True
 gettext_additional_targets = ['literal-block', 'image']
@@ -87,11 +87,10 @@ on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 # Set up language switcher
 html_context = {
-    'languages': [
-        ('en', 'English'),
-        ('ru', 'Русский'),
-    ],
-    'language': language,
     'current_language': language,
     'current_version': release,
+    'languages': [
+        ('en', '/en/latest/'),
+        ('ru', '/ru/latest/'),
+    ],
 }
