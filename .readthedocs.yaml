@@ -6,6 +6,8 @@ build:
     python: "3.11"
   apt_packages:
     - graphviz
+    - texlive-latex-extra
+    - texlive-fonts-recommended
 
 sphinx:
   configuration: docs/conf.py

@@ -90,3 +90,47 @@ nitpick_ignore = [
 
 # Logging settings
 suppress_warnings = ['app.add_node']
+
+# LaTeX settings
+latex_elements = {
+    'preamble': r'''
+    \usepackage{emoji}
+    \usepackage[utf8]{inputenc}
+    \DeclareUnicodeCharacter{1F535}{\emoji{large-blue-circle}}
+    \DeclareUnicodeCharacter{26A0}{\emoji{warning}}
+    \DeclareUnicodeCharacter{FE0F}{}
+    \DeclareUnicodeCharacter{1F4AC}{\emoji{speech-balloon}}
+    \DeclareUnicodeCharacter{1F3E2}{\emoji{office-building}}
+    \DeclareUnicodeCharacter{1F4CD}{\emoji{round-pushpin}}
+    \DeclareUnicodeCharacter{26AA}{\emoji{white-circle}}
+    \DeclareUnicodeCharacter{1F7E2}{\emoji{large-green-circle}}
+    \DeclareUnicodeCharacter{1F7E1}{\emoji{large-yellow-circle}}
+    \DeclareUnicodeCharacter{1F534}{\emoji{red-circle}}
+    \DeclareUnicodeCharacter{26D4}{\emoji{no-entry}}
+    \DeclareUnicodeCharacter{1F310}{\emoji{globe-with-meridians}}
+    \DeclareUnicodeCharacter{1F5C4}{\emoji{file-cabinet}}
+    \DeclareUnicodeCharacter{1F4CA}{\emoji{bar-chart}}
+    \DeclareUnicodeCharacter{1F680}{\emoji{rocket}}
+    \DeclareUnicodeCharacter{2728}{\emoji{sparkles}}
+    \DeclareUnicodeCharacter{23F0}{\emoji{alarm-clock}}
+    \DeclareUnicodeCharacter{231A}{\emoji{watch}}
+    \DeclareUnicodeCharacter{1F4C5}{\emoji{calendar}}
+    \DeclareUnicodeCharacter{1F1EA}{\emoji{regional-indicator-e}}
+    \DeclareUnicodeCharacter{1F1FA}{\emoji{regional-indicator-u}}
+    \DeclareUnicodeCharacter{1F1F8}{\emoji{regional-indicator-s}}
+    \DeclareUnicodeCharacter{1F4C6}{\emoji{tear-off-calendar}}
+    \DeclareUnicodeCharacter{1F4DD}{\emoji{memo}}
+    \DeclareUnicodeCharacter{23F3}{\emoji{hourglass-flowing-sand}}
+    \DeclareUnicodeCharacter{1F50D}{\emoji{magnifying-glass-tilted-left}}
+    \DeclareUnicodeCharacter{1F4BB}{\emoji{laptop}}
+    \DeclareUnicodeCharacter{2699}{\emoji{gear}}
+    \DeclareUnicodeCharacter{1F41B}{\emoji{bug}}
+    \DeclareUnicodeCharacter{26A1}{\emoji{high-voltage}}
+    \DeclareUnicodeCharacter{1F4A5}{\emoji{collision}}
+    \DeclareUnicodeCharacter{1F198}{\emoji{sos}}
+    \DeclareUnicodeCharacter{1F537}{\emoji{large-blue-diamond}}
+    \DeclareUnicodeCharacter{2139}{\emoji{information}}
+    \DeclareUnicodeCharacter{274C}{\emoji{cross-mark}}
+    \DeclareUnicodeCharacter{1F6A8}{\emoji{police-car-light}}
+    ''',
+}
