@@ -1,66 +1,159 @@
 # Russian translations for TGBot-Logging.
 # Copyright (C) 2024 Kirill Bykov
-# This file is distributed under the same license as the TGBot-Logging project.
+# This file is distributed under the same license as the TGBot-Logging
+# project.
 msgid ""
 msgstr ""
 "Project-Id-Version: TGBot-Logging 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-06 12:00+0000\n"
+"POT-Creation-Date: 2024-12-07 12:06+0100\n"
 "PO-Revision-Date: 2024-01-06 12:00+0000\n"
 "Last-Translator: Kirill Bykov <me@bykovk.pro>\n"
 "Language-Team: Russian <me@bykovk.pro>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.16.0\n"
 
+#: ../../index.rst:20
+#, fuzzy
+msgid "Contents:"
+msgstr "Содержание"
+
+#: ../../index.rst:2 f723199954d141059408344dd783815d
 msgid "Welcome to TGBot-Logging's documentation!"
 msgstr "Добро пожаловать в документацию TGBot-Logging!"
 
-msgid "TGBot-Logging is a Python logging handler that sends log messages to Telegram chats."
-msgstr "TGBot-Logging - это обработчик логирования Python, который отправляет сообщения логов в чаты Telegram."
+#: ../../index.rst:4 ad7e4f643ead4935b8eee1381b36d5f8
+#, fuzzy
+msgid ""
+"TGBot-Logging is a Python logging handler that sends log messages to "
+"Telegram chats. It provides an easy way to integrate Telegram "
+"notifications into your application's logging system."
+msgstr ""
+"TGBot-Logging - это обработчик логирования Python, который отправляет "
+"сообщения логов в чаты Telegram."
 
+#: ../../index.rst:8 44a0ff60894649edaa267435fb583b0f
 msgid "Features"
 msgstr "Возможности"
 
+#: ../../index.rst:10 62732d9b04de45418666612daa21d147
 msgid "Send log messages to one or multiple Telegram chats"
 msgstr "Отправка сообщений логов в один или несколько чатов Telegram"
 
+#: ../../index.rst:11 2ee180b0ddc744ff9639683eabfbc7a3
 msgid "Support for HTML and MarkdownV2 formatting"
 msgstr "Поддержка форматирования HTML и MarkdownV2"
 
+#: ../../index.rst:12 536c48a71ac4494f973668da4e768d09
 msgid "Message batching for better performance"
 msgstr "Пакетная отправка сообщений для лучшей производительности"
 
+#: ../../index.rst:13 db8ac7af95d240dba04f5f5ffd04e352
 msgid "Automatic retries for failed messages"
 msgstr "Автоматические повторные попытки для неудачных сообщений"
 
+#: ../../index.rst:14 448b69d16b37470e9ba2c5c062de453c
 msgid "Customizable log format"
 msgstr "Настраиваемый формат логов"
 
+#: ../../index.rst:15 8cbb605bb6ec422b83ccf5d7add33769
+msgid "Asynchronous message sending"
+msgstr ""
+
+#: ../../index.rst:16 4c93549ba65a42c187419a85e39830f2
+msgid "Graceful error handling"
+msgstr ""
+
+#: ../../index.rst:17 d79559ff338d4e64abdbc4de0b8287f1
+msgid "Cross-platform compatibility"
+msgstr ""
+
+#: ../../index.rst:18 f2f2240eed7f4316bc4bffaeb17d539c
 msgid "Environment variables support"
 msgstr "Поддержка переменных окружения"
 
-msgid "Contents"
-msgstr "Содержание"
-
+#: ../../index.rst:33 3008659b97f8474ea1ca64bab2e87070
 msgid "Installation"
 msgstr "Установка"
 
+#: ../../index.rst:36 032452d7d22641cd866ab4caa294958d
 msgid "Basic Installation (Production)"
 msgstr "Базовая установка (для продакшена)"
 
+#: ../../index.rst:38 452eb41adb66431db073eed02dc7e44c
+msgid "For basic usage in production environment:"
+msgstr ""
+
+#: ../../index.rst:40 91f41b8c8fc04bd29af9fe5a864ced72
+msgid "pip install tgbot-logging"
+msgstr ""
+
+#: ../../index.rst:45 7facd956317f4dfea72f9d417fcaebb2
 msgid "Development Installation"
 msgstr "Установка для разработки"
 
+#: ../../index.rst:47 f32b0c91a6a94a53807c5ce1a23ceeb2
+msgid "For development with testing tools and code formatting:"
+msgstr ""
+
+#: ../../index.rst:49 5f1850a4d9184469a87b8db9e9211056
+msgid ""
+"pip install tgbot-logging[dev]\n"
+"# or\n"
+"pip install -r requirements-dev.txt"
+msgstr ""
+
+#: ../../index.rst:56 30d78bce2b9f4453aed8fcf06b0cdaf2
 msgid "Documentation Tools"
 msgstr "Инструменты документации"
 
+#: ../../index.rst:58 abb677465f08420689cbef712d10af62
+msgid "For building documentation:"
+msgstr ""
+
+#: ../../index.rst:60 e84d9aa146fe46efa34be9263b150aa6
+msgid "pip install tgbot-logging[docs]"
+msgstr ""
+
+#: ../../index.rst:65 f04b5eea2baa4d06b2c5e40da5f4464f
 msgid "Build Tools"
 msgstr "Инструменты сборки"
 
+#: ../../index.rst:67 ecbcf0d8b02249b3a807563d9b9a71d3
+msgid "For package building and distribution:"
+msgstr ""
+
+#: ../../index.rst:69 8a54eea3866f47ffaac05ee3f2d26128
+msgid "pip install tgbot-logging[build]"
+msgstr ""
+
+#: ../../index.rst:74 db7a1469377b4cae99bec10619d75394
 msgid "Full Installation"
 msgstr "Полная установка"
 
+#: ../../index.rst:76 c37b98a1a8a2480398298a35af8a573b
+msgid "For all optional dependencies:"
+msgstr ""
+
+#: ../../index.rst:78 f6e672de1f1b464fbf10eb9672e6d375
+msgid "pip install tgbot-logging[all]"
+msgstr ""
+
+#: ../../index.rst:83 ef649b0773644c3a8f538ad29f3894db
 msgid "Indices and tables"
-msgstr "Индексы и таблицы" 
+msgstr "Индексы и таблицы"
+
+#: ../../index.rst:85 86310808831e41dea37fda831f2b9934
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../index.rst:86 dfd1213a34e74b82a663a4e7496f29f4
+msgid ":ref:`modindex`"
+msgstr ""
+
+#: ../../index.rst:87 afb5f01a1a2d40d59955dcdbace0bee9
+msgid ":ref:`search`"
+msgstr ""
+

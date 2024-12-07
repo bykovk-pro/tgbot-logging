@@ -1,216 +1,366 @@
 # Russian translations for TGBot-Logging.
 # Copyright (C) 2024 Kirill Bykov
-# This file is distributed under the same license as the TGBot-Logging project.
+# This file is distributed under the same license as the TGBot-Logging
+# project.
 msgid ""
 msgstr ""
 "Project-Id-Version: TGBot-Logging 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-06 12:00+0000\n"
+"POT-Creation-Date: 2024-12-07 12:06+0100\n"
 "PO-Revision-Date: 2024-01-06 12:00+0000\n"
 "Last-Translator: Kirill Bykov <me@bykovk.pro>\n"
 "Language-Team: Russian <me@bykovk.pro>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.16.0\n"
 
+#: ../../development.rst:2 b11b1444f8f745ecbc48786f6013ab4d
 msgid "Development Guide"
 msgstr "Руководство разработчика"
 
-msgid "This guide will help you set up your development environment and contribute to TGBot-Logging."
-msgstr "Это руководство поможет вам настроить среду разработки и внести свой вклад в TGBot-Logging."
+#: ../../development.rst:4 8c1783bcd58740268628d0495cae1778
+msgid ""
+"This guide will help you set up your development environment and "
+"contribute to TGBot-Logging."
+msgstr ""
+"Это руководство поможет вам настроить среду разработки и внести свой "
+"вклад в TGBot-Logging."
 
+#: ../../development.rst:7 d0e228fef4a24eccab228ab21c8effe0
 msgid "Development Setup"
 msgstr "Настройка среды разработки"
 
+#: ../../development.rst:9 88dd39b0ad754ddda91f54a3e64b9d0d
 msgid "Clone the repository:"
 msgstr "Клонируйте репозиторий:"
 
+#: ../../development.rst:11 248011b2f6e54de0801a97484674fb3e
+msgid ""
+"git clone https://github.com/bykovk-pro/tgbot-logging.git\n"
+"cd tgbot-logging"
+msgstr ""
+
+#: ../../development.rst:16 343f7635ce66458f94f678a385bcfea6
 msgid "Create and activate a virtual environment:"
 msgstr "Создайте и активируйте виртуальное окружение:"
 
+#: ../../development.rst:18 3557a74f4adb476dba71710907e0f921
+msgid ""
+"python -m venv venv\n"
+"source venv/bin/activate  # Linux/macOS\n"
+"# or\n"
+".\\venv\\Scripts\\activate  # Windows"
+msgstr ""
+
+#: ../../development.rst:25 e49787b0955543ed9413d9bef1db50f4
 msgid "Install development dependencies:"
 msgstr "Установите зависимости для разработки:"
 
+#: ../../development.rst:27 d2077d80c928496d8d4979f5a3723eeb
+msgid ""
+"pip install -e \".[dev]\"\n"
+"# or\n"
+"pip install -r requirements-dev.txt"
+msgstr ""
+
+#: ../../development.rst:34 94e2f981bbe74087b1b02431f4b95720
 msgid "Project Structure"
 msgstr "Структура проекта"
 
+#: ../../development.rst:36 e0a007678e774e829e6b9ada25f3f677
+msgid ""
+"tgbot-logging/\n"
+"├── docs/               # Documentation\n"
+"├── examples/           # Example scripts\n"
+"├── src/               # Source code\n"
+"│   └── tgbot_logging/\n"
+"│       ├── __init__.py\n"
+"│       └── handler.py\n"
+"├── tests/             # Test files\n"
+"├── .env.example       # Environment variables example\n"
+"├── setup.py           # Package configuration\n"
+"├── requirements.txt   # Production dependencies\n"
+"└── requirements-dev.txt  # Development dependencies"
+msgstr ""
+
+#: ../../development.rst:52 e8b18214363646eead0e6014b433b9d7
 msgid "Testing"
 msgstr "Тестирование"
 
+#: ../../development.rst:54 dc67eebf28bc4b43901b5d070e7c3bcc
 msgid "Run tests using pytest:"
 msgstr "Запустите тесты с помощью pytest:"
 
+#: ../../development.rst:56 4c4ecc16489242c7ad6b4a49e99e23d9
+#, fuzzy
+msgid "pytest"
+msgstr "Тестирование"
+
+#: ../../development.rst:60 144be763972849ad8042a10364434d44
 msgid "For manual testing, you can use the test bot script:"
 msgstr "Для ручного тестирования вы можете использовать скрипт тестового бота:"
 
+#: ../../development.rst:62 1c79931f24ee44399dfb766abca6922b
+msgid "python tests/test_bot.py"
+msgstr ""
+
+#: ../../development.rst:67 e5e2b52890f14a60a6f8f0defa6cfc2e
 msgid "Code Style"
 msgstr "Стиль кода"
 
+#: ../../development.rst:69 3a00185eb7804af2b96b9a31e1e4c933
 msgid "We use the following tools for code formatting and linting:"
 msgstr "Мы используем следующие инструменты для форматирования и проверки кода:"
 
+#: ../../development.rst:71 9c8677ce007a4c7eba42fd4bce15744d
 msgid "black - Code formatter"
 msgstr "black - Форматировщик кода"
 
+#: ../../development.rst:72 524ef43147c64606aed72a23d0c8c3f8
 msgid "isort - Import sorter"
 msgstr "isort - Сортировщик импортов"
 
+#: ../../development.rst:73 5fa57e62bb9d4e75bd2858ac94aacd56
 msgid "flake8 - Style guide enforcement"
 msgstr "flake8 - Проверка соответствия стилю"
 
+#: ../../development.rst:75 be065a9f38164d8a807ab3a7aa7517e3
 msgid "Format your code:"
 msgstr "Отформатируйте ва�� код:"
 
+#: ../../development.rst:77 f02835080ef242528f6f90c4b0d95216
+msgid ""
+"black src tests examples\n"
+"isort src tests examples\n"
+"flake8 src tests examples"
+msgstr ""
+
+#: ../../development.rst:84 ec0225404bc74afeb3b5e877aa59977c
 msgid "Documentation"
 msgstr "Документация"
 
+#: ../../development.rst:86 a3da759357544a3c9dac167b162abd0c
 msgid "Build documentation locally:"
 msgstr "Соберите документацию локально:"
 
+#: ../../development.rst:88 0344a1d0ebc142e8a2888586d2e57dac
+msgid ""
+"cd docs\n"
+"make html"
+msgstr ""
+
+#: ../../development.rst:93 d44e403cf1804c7ba57640dab387ba6e
 msgid "View the documentation:"
 msgstr "Просмотрите документацию:"
 
+#: ../../development.rst:95 7522599031ba46cea856cb5627b58657
+msgid ""
+"open _build/html/index.html  # macOS\n"
+"# or\n"
+"xdg-open _build/html/index.html  # Linux\n"
+"# or\n"
+"start _build/html/index.html  # Windows"
+msgstr ""
+
+#: ../../development.rst:104 ce13de3b96e74f66ad647e056ade9613
 msgid "Building and Distribution"
 msgstr "Сборка и распространение"
 
-msgid "Update version in src/tgbot_logging/__init__.py"
+#: ../../development.rst:106 b6e1dda809984dc593e6e796e4f4f9fd
+#, fuzzy
+msgid "Update version in ``src/tgbot_logging/__init__.py``"
 msgstr "Обновите версию в src/tgbot_logging/__init__.py"
 
+#: ../../development.rst:108 cead89acb556416cb62446de80cae756
 msgid "Build the package:"
 msgstr "Соберите пакет:"
 
+#: ../../development.rst:110 fe212ddda92d4a769574952b7cb2306b
+msgid "python -m build"
+msgstr ""
+
+#: ../../development.rst:114 910de3f8f52e4c9fbe9bb7e044ace81d
 msgid "Upload to PyPI:"
 msgstr "Загрузите на PyPI:"
 
+#: ../../development.rst:116 b64634e802a04526a2711c9ae788fb14
+msgid "python -m twine upload dist/*"
+msgstr ""
+
+#: ../../development.rst:121 3921f1403c5a4f50ad8d75558273fe51
 msgid "Contributing"
 msgstr "Внесение вклада"
 
+#: ../../development.rst:123 7bfbc9158be34a53bb828eb4d5e87ec8
 msgid "Fork the repository"
 msgstr "Сделайте форк репозитория"
 
+#: ../../development.rst:124 4c2c35f476014966bca0f011965e4fdc
 msgid "Create a feature branch"
 msgstr "Создайте ветку для функционала"
 
+#: ../../development.rst:125 45d7331406cd4cb3a8f7b1e753ec6453
 msgid "Make your changes"
 msgstr "Внесите ваши изменения"
 
+#: ../../development.rst:126 0e860a14fe3a4daf942cd4c49cf690fc
 msgid "Run tests and linting"
 msgstr "Запустите тесты и проверку кода"
 
+#: ../../development.rst:127 708a6bee847d4cd9ac781876cb786234
 msgid "Submit a pull request"
 msgstr "Отправьте pull request"
 
+#: ../../development.rst:130 4b1b60384ef844138cd7259efe6d3ca6
 msgid "Pull Request Guidelines"
 msgstr "Рекомендации по Pull Request"
 
+#: ../../development.rst:132 31d89ec9d5a3403ba92b17e4eee41e24
 msgid "Include tests for new features"
 msgstr "Включите тест�� для новых функций"
 
+#: ../../development.rst:133 6db0ec4a00fb47ac95877106fcb60265
 msgid "Update documentation as needed"
 msgstr "Обновите документацию при необходимости"
 
+#: ../../development.rst:134 c806c8be0f2a4528a54a506d23d8fe3b
 msgid "Follow the existing code style"
 msgstr "Следуйте существующему стилю кода"
 
+#: ../../development.rst:135 0b5397367f4f43e590fd8e05fd8d978f
 msgid "Write clear commit messages"
 msgstr "Пишите понятные сообщения коммитов"
 
+#: ../../development.rst:136 dd87c5fc48e646c7b97f31a493c36a7c
 msgid "Add yourself to CONTRIBUTORS.md"
 msgstr "Добавьте себя в CONTRIBUTORS.md"
 
+#: ../../development.rst:139 87abef936a4249d8b279073a772ff26a
 msgid "Security"
 msgstr "Безопасность"
 
+#: ../../development.rst:141 58c8b536d20c4e63bf8c85100ad588cc
 msgid "Never commit sensitive data (tokens, passwords, etc.)"
 msgstr "Никогда не коммитьте конфиденциальные данные (токены, пароли и т.д.)"
 
+#: ../../development.rst:142 da234e6ecdd74d0b9a74e138dd28f922
 msgid "Use environment variables for configuration"
 msgstr "Используйте переменные окружения для конфигурации"
 
+#: ../../development.rst:143 49cb7c13ddc943ee8efc48a5aef88a5e
 msgid "Report security issues privately"
 msgstr "Сообщайте о проблемах безопасности приватно"
 
+#: ../../development.rst:144 c30e49a6d92f42ebb026334bd5388165
 msgid "Keep dependencies up to date"
 msgstr "Поддерживайте зависимости в актуальном состоянии"
 
+#: ../../development.rst:147 25104758485f4a7787e1f68ff9ab0960
 msgid "Release Process"
 msgstr "Процесс релиза"
 
+#: ../../development.rst:149 b9554a8f8dae4cb4967b844b10ad12a1
 msgid "Update CHANGELOG.md"
 msgstr "Обновите CHANGELOG.md"
 
+#: ../../development.rst:150 14473e71f2cd4c48b8eca40ce15757bf
 msgid "Update version number"
 msgstr "Обновите номер версии"
 
+#: ../../development.rst:151 07ec0bda1cf548e6a77f2cdd513d27c3
 msgid "Create release branch"
 msgstr "Создайте ветку релиза"
 
+#: ../../development.rst:152 64ac3aff97fb4c3986d85939e564dcff
 msgid "Run full test suite"
 msgstr "Запустите полный набор тестов"
 
+#: ../../development.rst:153 5c45d439c1ad422e9d7946b2057384ab
 msgid "Build and test package"
 msgstr "Соберите и протестируйте пакет"
 
+#: ../../development.rst:154 e043293ac2584111a51835df02a0358c
 msgid "Create GitHub release"
 msgstr "Создайте релиз на GitHub"
 
+#: ../../development.rst:155 fd73d67f42394f319e956557ddfdee96
 msgid "Upload to PyPI"
 msgstr "Загрузите на PyPI"
 
+#: ../../development.rst:158 0fb06efda5ed48d98c4b431c6b40fcc0
 msgid "Troubleshooting"
 msgstr "Устранение проблем"
 
+#: ../../development.rst:161 3256eecfe75e4c78bc5d30110eb9bbc7
 msgid "Common Issues"
 msgstr "Частые проблемы"
 
+#: ../../development.rst:163 1b2ff03b55774747ad5e9a85e4c706ad
 msgid "Rate Limiting"
 msgstr "Ограничение частоты"
 
+#: ../../development.rst:165 f2e576c3eaf340dc8e14f2a3fc85545d
 msgid "Telegram has rate limits for bots"
 msgstr "Telegram имеет ограничения частоты для ботов"
 
+#: ../../development.rst:166 aecc2385983e415a9f503b046c575a5a
 msgid "Use batch_size and batch_interval"
 msgstr "Используйте batch_size и batch_interval"
 
+#: ../../development.rst:167 d010acf1e6fa4b8ea339f5ebbee28d38
 msgid "Handle RetryAfter exceptions"
 msgstr "Обрабатывайте исключения RetryAfter"
 
+#: ../../development.rst:169 9696fd50b2be471ea5ec8cb62db85035
 msgid "Message Formatting"
 msgstr "Форматирование сообщений"
 
+#: ../../development.rst:171 51274397d7134e3dbc368ce36761d5ae
 msgid "HTML and MarkdownV2 have specific requirements"
 msgstr "HTML и MarkdownV2 имеют специфические требования"
 
+#: ../../development.rst:172 d6ab7a435e7d4802a8e942295d2c21a9
 msgid "Escape special characters"
 msgstr "Экранируйте специальные символы"
 
+#: ../../development.rst:173 d13ec66564204f3c8cc0003f17c2fc54
 msgid "Test formatting in Telegram first"
 msgstr "Сначала тестируйте форматирование в Telegram"
 
+#: ../../development.rst:175 366ba97080d2454182882fc2b881ea13
 msgid "Environment Variables"
 msgstr "Переменные окружения"
 
+#: ../../development.rst:177 ca1fa17dc37142c7ae77cd8c80872029
 msgid "Check .env file location"
 msgstr "Проверьте расположение файла .env"
 
+#: ../../development.rst:178 d6cc60a8ac5244249648347a38887907
 msgid "Verify variable names"
 msgstr "Проверьте имена переменных"
 
+#: ../../development.rst:179 d0ed8d5efc0b4a9e85bd4675a1a0cac4
 msgid "Use correct data types"
 msgstr "Используйте правильные типы данных"
 
+#: ../../development.rst:182 b1538ace3da149dd85c319ac87a7286a
 msgid "Getting Help"
 msgstr "Получение помощи"
 
+#: ../../development.rst:184 d852bd4ff1394143b1e344d8998c4100
 msgid "Open an issue on GitHub"
 msgstr "Откройте issue на GitHub"
 
+#: ../../development.rst:185 13152ac80c9e4faab444a803b7889fa3
 msgid "Check existing issues"
 msgstr "Проверьте существующие issues"
 
+#: ../../development.rst:186 58e7b95b024040d1a472a1bf574561c6
 msgid "Read the FAQ"
 msgstr "Прочитайте FAQ"
 
+#: ../../development.rst:187 fc9316d4771d494bbf5d7eec08a54013
 msgid "Join our Telegram group"
-msgstr "Присоединитесь к нашей группе в Telegram" 
+msgstr "Присоединитесь к нашей группе в Telegram"
+

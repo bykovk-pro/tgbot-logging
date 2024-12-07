@@ -1,99 +1,216 @@
 # Russian translations for TGBot-Logging.
 # Copyright (C) 2024 Kirill Bykov
-# This file is distributed under the same license as the TGBot-Logging project.
+# This file is distributed under the same license as the TGBot-Logging
+# project.
 msgid ""
 msgstr ""
 "Project-Id-Version: TGBot-Logging 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-06 12:00+0000\n"
+"POT-Creation-Date: 2024-12-07 12:06+0100\n"
 "PO-Revision-Date: 2024-01-06 12:00+0000\n"
 "Last-Translator: Kirill Bykov <me@bykovk.pro>\n"
 "Language-Team: Russian <me@bykovk.pro>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.16.0\n"
 
+#: ../../quickstart.rst:2 adb5fa54e76349fca84ff86a5f788e1d
 msgid "Quick Start Guide"
 msgstr "Руководство по быстрому старту"
 
+#: ../../quickstart.rst:4 c20b0ac23bc64497aaaa2aec4ff0f9e9
 msgid "This guide will help you get started with TGBot-Logging quickly."
 msgstr "Это руководство поможет вам быстро начать работу с TGBot-Logging."
 
+#: ../../quickstart.rst:7 ee9ce5e203484396b422c114f40d03bf
 msgid "Setup"
 msgstr "Настройка"
 
+#: ../../quickstart.rst:9 015f655c34fc419c8bec0bce931a5e97
 msgid "Create a Telegram bot:"
 msgstr "Создайте бота в Telegram:"
 
-msgid "Open @BotFather in Telegram"
+#: ../../quickstart.rst:11 fb45b2d326544638939f3a0341291e86
+#, fuzzy
+msgid "Open `@BotFather <https://t.me/botfather>`_ in Telegram"
 msgstr "Откройте @BotFather в Telegram"
 
-msgid "Send /newbot command"
+#: ../../quickstart.rst:12 95a344a31f184f5d8ba4b413b50dfcdf
+#, fuzzy
+msgid "Send ``/newbot`` command"
 msgstr "Отправьте команду /newbot"
 
+#: ../../quickstart.rst:13 0c8d74c94a324e3e9451684ac34f85a3
 msgid "Follow instructions to create a bot"
 msgstr "Следуйте инструкциям для создания бота"
 
-msgid "Copy the bot token (it looks like 123456789:ABCdefGHIjklmNOPqrstUVwxyz)"
-msgstr "Скопируйте токен бота (он выглядит как 123456789:ABCdefGHIjklmNOPqrstUVwxyz)"
+#: ../../quickstart.rst:14 0e827033cd9c4ef697da98baf3b0401e
+#, fuzzy
+msgid ""
+"Copy the bot token (it looks like "
+"``123456789:ABCdefGHIjklmNOPqrstUVwxyz``)"
+msgstr ""
+"Скопируйте токен бота (он выглядит как "
+"123456789:ABCdefGHIjklmNOPqrstUVwxyz)"
 
+#: ../../quickstart.rst:16 b7c5ed915bbe48de8a76c4a59fb673c3
 msgid "Get your chat ID:"
 msgstr "Получите ID вашего чата:"
 
+#: ../../quickstart.rst:18 6f4d93ea901c475aa660ca6a9280d941
 msgid "Start a chat with your bot"
 msgstr "Начните чат с вашим ботом"
 
+#: ../../quickstart.rst:19 62b7e82627964488b463b1909f86fba6
 msgid "Send any message to the bot"
 msgstr "Отправьте любое сообщение боту"
 
-msgid "Open @userinfobot"
-msgstr "Откройте @userinfobot"
+#: ../../quickstart.rst:20 bf35c10039a641aaac01023f9eb44301
+msgid "Open `@userinfobot <https://t.me/userinfobot>`_"
+msgstr ""
 
-msgid "Copy your chat ID (it's a number like 123456789)"
+#: ../../quickstart.rst:21 ab3fc6f82553456c978e19b8c2773d0d
+#, fuzzy
+msgid "Copy your chat ID (it's a number like ``123456789``)"
 msgstr "Скопируйте ID вашего чата (это число, например 123456789)"
 
+#: ../../quickstart.rst:23 496004effce74708bd527a86fa57108d
 msgid "Configure environment variables:"
 msgstr "Настройте переменные окружения:"
 
-msgid "Copy .env.example to .env"
+#: ../../quickstart.rst:25 9d147b7698d640b9a1933748ac0c778c
+#, fuzzy
+msgid "Copy ``.env.example`` to ``.env``"
 msgstr "Скопируйте .env.example в .env"
 
+#: ../../quickstart.rst:26 cdf757796937482aa9104c7268be2dfb
 msgid "Replace placeholder values with your actual credentials"
 msgstr "Замените значения-заполнители на ваши реальные учетные данные"
 
-msgid "Never commit .env file to version control"
+#: ../../quickstart.rst:27 77f9d4f58a654d45925039d37bdb992e
+#, fuzzy
+msgid "Never commit ``.env`` file to version control"
 msgstr "Никогда не коммитьте файл .env в систему контроля версий"
 
+#: ../../quickstart.rst:30 815fb132cf194d20b2835140ae47ca05
 msgid "Basic Usage"
 msgstr "Базовое использование"
 
+#: ../../quickstart.rst:32 4c05bb13dc174b59b742f0c68fdc48dc
 msgid "Here's a minimal example to get you started:"
 msgstr "Вот минимальный пример для начала работы:"
 
+#: ../../quickstart.rst:34 84d2a6e45bdd4b07abba8cf909f26300
+msgid ""
+"import logging\n"
+"from tgbot_logging import TelegramHandler\n"
+"\n"
+"# Create logger\n"
+"logger = logging.getLogger('MyApp')\n"
+"logger.setLevel(logging.DEBUG)\n"
+"\n"
+"# Create TelegramHandler\n"
+"telegram_handler = TelegramHandler(\n"
+"    token='YOUR_BOT_TOKEN',\n"
+"    chat_ids=['YOUR_CHAT_ID'],\n"
+"    level=logging.INFO\n"
+")\n"
+"\n"
+"# Add handler to logger\n"
+"logger.addHandler(telegram_handler)\n"
+"\n"
+"# Example usage\n"
+"logger.info('This is an info message')\n"
+"logger.error('This is an error message')"
+msgstr ""
+
+#: ../../quickstart.rst:58 c3c38b6e32714ae88dd2a23f7fa9ffbb
 msgid "Using Environment Variables"
 msgstr "Использование переменных окружения"
 
+#: ../../quickstart.rst:60 8312dc25630b4127b8b39d5fb3cfdf53
 msgid "You can use environment variables for configuration:"
 msgstr "Вы можете использовать переменные окружения для конфигурации:"
 
+#: ../../quickstart.rst:62 393686b82a9648749a53df9f69daacb8
+msgid ""
+"import os\n"
+"from dotenv import load_dotenv\n"
+"from tgbot_logging import TelegramHandler\n"
+"\n"
+"# Load environment variables\n"
+"load_dotenv()\n"
+"\n"
+"# Create handler using environment variables\n"
+"handler = TelegramHandler(\n"
+"    token=os.getenv('TELEGRAM_BOT_TOKEN'),\n"
+"    chat_ids=[os.getenv('TELEGRAM_CHAT_ID')],\n"
+"    level=os.getenv('LOG_LEVEL', 'INFO'),\n"
+"    batch_size=int(os.getenv('BATCH_SIZE', 5)),\n"
+"    batch_interval=float(os.getenv('BATCH_INTERVAL', 2.0))\n"
+")"
+msgstr ""
+
+#: ../../quickstart.rst:81 98acbb224c9f4f6d9d79d40b0722b49a
 msgid "Message Formatting"
 msgstr "Форматирование сообщений"
 
+#: ../../quickstart.rst:83 cdf6ba6041a8428d81bc191957caa4a6
 msgid "HTML Formatting:"
 msgstr "HTML форматирование:"
 
+#: ../../quickstart.rst:85 332fdd7720054212830d3649596c9262
+#, python-format
+msgid ""
+"handler = TelegramHandler(\n"
+"    token='YOUR_BOT_TOKEN',\n"
+"    chat_ids=['YOUR_CHAT_ID'],\n"
+"    parse_mode='HTML',\n"
+"    fmt='<b>%(levelname)s</b> [%(asctime)s]\\n%(message)s'\n"
+")\n"
+"\n"
+"logger.info('Message with <b>bold text</b> and <i>italic text</i>')"
+msgstr ""
+
+#: ../../quickstart.rst:96 4f376e4aff844f398ec19d40f437df7c
 msgid "MarkdownV2 Formatting:"
 msgstr "MarkdownV2 форматирование:"
 
+#: ../../quickstart.rst:98 8bef4711633040718cb6fc6d665f9089
+#, python-format
+msgid ""
+"handler = TelegramHandler(\n"
+"    token='YOUR_BOT_TOKEN',\n"
+"    chat_ids=['YOUR_CHAT_ID'],\n"
+"    parse_mode='MarkdownV2',\n"
+"    fmt='*%(levelname)s* \\[%(asctime)s\\]\\n%(message)s'\n"
+")\n"
+"\n"
+"logger.info('Message with *bold text* and _italic text_')"
+msgstr ""
+
+#: ../../quickstart.rst:110 e2a601190444423f907c5bd057683721
 msgid "Next Steps"
 msgstr "Следующие шаги"
 
-msgid "Check out the configuration section for detailed configuration options"
+#: ../../quickstart.rst:112 75a316f46e4a49df811b9d804d24f05d
+#, fuzzy
+msgid ""
+"Check out the :doc:`configuration` section for detailed configuration "
+"options"
 msgstr "Ознакомьтесь с разделом конфигурации для подробных настроек"
 
-msgid "See examples for more advanced usage examples"
+#: ../../quickstart.rst:113 ebd2bdd8b07f4041a243707405b7c1ba
+#, fuzzy
+msgid "See :doc:`examples` for more advanced usage examples"
 msgstr "Посмотрите примеры для более продвинутого использования"
 
-msgid "Read the api documentation for complete API reference"
-msgstr "Прочитайте документацию API для полного справочника по API" 
+#: ../../quickstart.rst:114 a091d946edd0432393ef9284fdc60a2f
+#, fuzzy
+msgid "Read the :doc:`api` documentation for complete API reference"
+msgstr "Прочитайте документацию API для полного справочника по API"
+
+#~ msgid "Open @userinfobot"
+#~ msgstr "Откройте @userinfobot"
+
