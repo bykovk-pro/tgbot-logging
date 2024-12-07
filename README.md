@@ -97,7 +97,6 @@ Full documentation is available at [tgbot-logging.readthedocs.io](https://tgbot-
 - Advanced usage examples
 - API reference
 - Development guide
-- Russian translation
 
 ## Features in Detail
 

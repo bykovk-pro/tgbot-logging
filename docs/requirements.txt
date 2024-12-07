@@ -2,7 +2,6 @@
 sphinx==7.1.2
 sphinx-rtd-theme==2.0.0
 sphinx-autodoc-typehints==1.25.2
-sphinx-intl==2.1.0
 
 # Project dependencies
 python-telegram-bot>=21.0.1
@@ -35,6 +34,3 @@ urllib3==2.2.3
 certifi==2024.8.30
 charset-normalizer==3.3.2
 idna==3.10
-
-# Translation tools
-polib==1.2.0

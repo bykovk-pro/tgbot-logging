@@ -7,15 +7,6 @@ copyright = '2024, Kirill Bykov'
 author = 'Kirill Bykov'
 release = '0.1.0'
 
-# Internationalization settings
-language = os.getenv('READTHEDOCS_LANGUAGE', 'en')
-locale_dirs = ['locale']
-gettext_compact = False
-gettext_uuid = True
-gettext_additional_targets = ['literal-block', 'image']
-gettext_auto_build = True
-gettext_languages = ['ru']
-
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
@@ -34,12 +25,6 @@ html_static_path = ['_static']
 html_show_sourcelink = True
 html_show_sphinx = True
 html_show_copyright = True
-
-# Language-specific options
-if language == 'ru':
-    project = 'TGBot-Logging'
-    copyright = '2024, Кирилл Быков'
-    author = 'Кирилл Быков'
 
 # Intersphinx mapping
 intersphinx_mapping = {
