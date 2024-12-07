@@ -13,6 +13,8 @@ locale_dirs = ['locale/']
 gettext_compact = False
 gettext_uuid = True
 gettext_additional_targets = ['literal-block', 'image']
+gettext_auto_build = True
+gettext_languages = ['ru']
 
 extensions = [
     'sphinx.ext.autodoc',
@@ -79,3 +81,17 @@ napoleon_use_admonition_for_references = True
 napoleon_use_ivar = True
 napoleon_use_param = True
 napoleon_use_rtype = True
+
+# ReadTheDocs specific settings
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
+# Set up language switcher
+html_context = {
+    'languages': [
+        ('en', 'English'),
+        ('ru', 'Русский'),
+    ],
+    'language': language,
+    'current_language': language,
+    'current_version': release,
+}

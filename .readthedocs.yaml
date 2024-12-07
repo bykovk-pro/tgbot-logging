@@ -16,7 +16,7 @@ build:
 sphinx:
   configuration: docs/conf.py
   fail_on_warning: false
-  builder: dirhtml
+  builder: html
 
 formats:
   - pdf
@@ -34,3 +34,14 @@ python:
 submodules:
   include: all
   recursive: true
+
+# RTD Configuration
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.11"
+
+# Languages configuration
+languages:
+   en: docs/
+   ru: docs/locale/ru/LC_MESSAGES/
