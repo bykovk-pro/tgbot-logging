@@ -34,10 +34,3 @@ python:
 submodules:
   include: all
   recursive: true
-
-# Domain configuration
-domains:
-  - name: docs.bykovk.pro
-    https: true
-    enforce_https: true
-    canonical: true
