@@ -9,7 +9,7 @@ release = '0.1.0'
 
 # Internationalization settings
 language = os.getenv('READTHEDOCS_LANGUAGE', 'en')
-locale_dirs = ['locale']
+locale_dirs = ['locale/']
 gettext_compact = False
 gettext_uuid = True
 gettext_additional_targets = ['literal-block', 'image']
@@ -60,7 +60,6 @@ html_theme_options = {
     'navigation_depth': 4,
     'includehidden': True,
     'titles_only': False,
-    'canonical_url': 'https://docs.bykovk.pro/',
 }
 
 # Autodoc settings
@@ -80,24 +79,3 @@ napoleon_use_admonition_for_references = True
 napoleon_use_ivar = True
 napoleon_use_param = True
 napoleon_use_rtype = True
-
-# ReadTheDocs specific settings
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-
-# Translation settings
-gettext_auto_build = True
-gettext_languages = ['ru']
-gettext_enable_windows_help = False
-gettext_location = True
-gettext_compact = False
-
-# Set up language switcher
-html_context = {
-    'languages': [
-        ('en', 'English'),
-        ('ru', 'Русский'),
-    ],
-    'language': language,
-    'current_language': language,
-    'current_version': release,
-}

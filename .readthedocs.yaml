@@ -34,13 +34,3 @@ python:
 submodules:
   include: all
   recursive: true
-
-# Languages configuration
-languages:
-  en:
-    path: docs/
-    name: English
-  ru:
-    path: docs/
-    name: Русский
-    locale: ru
