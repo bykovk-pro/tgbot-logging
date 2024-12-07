@@ -84,7 +84,7 @@ class TelegramHandler(logging.Handler):
         self.test_mode = test_mode
         
         # Initialize bot
-        self.bot = Bot(token=token)
+        self._bot = Bot(token=token)
         
         # Set formatter with custom date format
         if fmt is not None:
@@ -119,6 +119,10 @@ class TelegramHandler(logging.Handler):
             self.loop = asyncio.get_event_loop()
             self.executor = None
             self.batch_thread = None
+    
+    def _get_bot(self) -> Bot:
+        """Get the bot instance."""
+        return self._bot
     
     def default_message_format(self, record: logging.LogRecord, context: Dict) -> str:
         """Default message formatting function."""
@@ -199,10 +203,11 @@ class TelegramHandler(logging.Handler):
     
     async def _send_message_async(self, chat_id: str, message: str) -> None:
         """Send a message to a Telegram chat."""
+        bot = self._get_bot()
         if self.test_mode:
             # In test mode, just call the mock without error handling
             try:
-                await self.bot.send_message(
+                await bot.send_message(
                     chat_id=chat_id,
                     text=message,
                     parse_mode=self.parse_mode
@@ -217,7 +222,7 @@ class TelegramHandler(logging.Handler):
             retries = 0
             while retries <= self.max_retries:
                 try:
-                    await self.bot.send_message(
+                    await bot.send_message(
                         chat_id=chat_id,
                         text=message,
                         parse_mode=self.parse_mode
@@ -252,118 +257,90 @@ class TelegramHandler(logging.Handler):
                 # Send collected messages
                 for chat_id, messages in messages_to_send.items():
                     if messages:
-                        combined_message = '\n'.join(messages)
-                        self._send_with_retry(chat_id, combined_message)
+                        message = '\n'.join(messages)
+                        
+                        # Split message if it's too long
+                        max_length = 4096
+                        for i in range(0, len(message), max_length):
+                            chunk = message[i:i + max_length]
+                            if not self.test_mode:
+                                future = asyncio.run_coroutine_threadsafe(
+                                    self._send_message_async(chat_id, chunk),
+                                    self.loop
+                                )
+                                future.result()  # Wait for the message to be sent
+                            else:
+                                asyncio.run(self._send_message_async(chat_id, chunk))
                 
-                # Wait for more messages or timeout
-                self.batch_event.wait(timeout=self.batch_interval)
-                self.batch_event.clear()
-                
-            except Exception as e:
-                print(f"Error in batch sender: {str(e)}")
-                time.sleep(1)  # Small pause before next attempt
-    
-    def _send_with_retry(self, chat_id: str, message: str, retry_count: int = 0) -> None:
-        """Send message with retry logic."""
-        try:
-            future = asyncio.run_coroutine_threadsafe(
-                self._send_message_async(chat_id, message),
-                self.loop
-            )
-            future.result(timeout=30)
+                # Wait for more messages or batch interval
+                if not self._closed:
+                    self.batch_event.wait(self.batch_interval)
+                    self.batch_event.clear()
             
-        except Exception as e:
-            if retry_count < self.max_retries:
-                time.sleep(self.retry_delay)
-                self._send_with_retry(chat_id, message, retry_count + 1)
-            else:
-                print(f"Failed to send log to Telegram chat {chat_id} after {self.max_retries} retries: {str(e)}")
+            except Exception as e:
+                # Log any errors but continue running
+                print(f"Error in batch sender: {str(e)}")
+                if not self._closed:
+                    time.sleep(self.retry_delay)
     
-    async def emit(self, record: logging.LogRecord) -> None:
-        """Emit a record by queueing it for sending to Telegram chat(s)."""
+    def emit(self, record: logging.LogRecord) -> None:
+        """Emit a record."""
         if self._closed:
             return
-            
+        
         try:
-            msg = self._format_message(record)
+            message = self._format_message(record)
             
-            if self.test_mode:
-                # In test mode, send messages directly
+            # Add message to queues
+            with self.batch_lock:
                 for chat_id in self.chat_ids:
-                    try:
-                        await self._send_message_async(str(chat_id), msg)
-                    except (InvalidToken, TelegramError) as e:
-                        # In test mode, ignore Telegram errors but print them
-                        print(f"Error sending message to {chat_id}: {str(e)}")
-                        # Don't raise the error in test mode
-                        continue
-            else:
-                # In normal mode, use batching
-                with self.batch_lock:
-                    for chat_id in self.chat_ids:
-                        self.message_queue[str(chat_id)].put(msg)
-                self.batch_event.set()
+                    self.message_queue[str(chat_id)].put(message)
             
-            # Wait for message to be processed
-            await asyncio.sleep(0)
+            # Signal batch sender
+            self.batch_event.set()
             
         except Exception as e:
-            self.handleError(record)
+            self.handleError(record)  # Use standard error handling
     
     async def close(self) -> None:
-        """Clean up resources when the handler is closed synchronously."""
-        if not self._closed:
-            self._closed = True
-            
+        """
+        Close the handler.
+        
+        This method should be called to clean up resources when the handler is no longer needed.
+        """
+        if self._closed:
+            return
+        
+        self._closed = True
+        
+        try:
+            # Send shutdown message if in normal mode
             if not self.test_mode:
-                self.batch_event.set()  # Wake up batch thread
-                
-                # Wait for batch thread to finish
-                if self.batch_thread and self.batch_thread.is_alive():
-                    self.batch_thread.join(timeout=self.batch_interval * 2)
-                
-                # Stop event loop and executor
-                if self.loop.is_running():
-                    self.loop.call_soon_threadsafe(self.loop.stop)
-                if self.executor:
-                    self.executor.shutdown(wait=False)
+                for chat_id in self.chat_ids:
+                    try:
+                        await self._send_message_async(
+                            str(chat_id),
+                            f"{self.project_emoji} Logger shutdown"
+                        )
+                    except Exception:
+                        pass  # Ignore any errors during shutdown message
             
-            # Call parent's close() synchronously
-            super().close()
-    
-    async def aclose(self) -> None:
-        """Clean up resources when the handler is closed asynchronously."""
-        if not self._closed:
-            self._closed = True
+            # Wait for batch sender to finish
+            if self.batch_thread is not None:
+                self.batch_thread.join(timeout=5.0)
             
-            if not self.test_mode:
-                self.batch_event.set()  # Wake up batch thread
-                
-                # Wait for batch thread to finish
-                if self.batch_thread and self.batch_thread.is_alive():
-                    self.batch_thread.join(timeout=self.batch_interval * 2)
-                
-                # Send shutdown message without waiting for response
-                try:
-                    await self._send_message_async(
-                        self.chat_ids[0],
-                        "🔄 Logger shutdown. Some messages might have been dropped."
-                    )
-                except Exception:
-                    pass  # Ignore any errors during shutdown message
-                
-                # Stop event loop and executor
-                if self.loop.is_running():
-                    self.loop.call_soon_threadsafe(self.loop.stop)
-                if self.executor:
-                    self.executor.shutdown(wait=False)
+            # Clean up event loop
+            if self.executor is not None:
+                self.loop.call_soon_threadsafe(self.loop.stop)
+                self.executor.shutdown(wait=True)
             
             # Close bot session
-            if hasattr(self.bot, '_close_session'):
+            if hasattr(self, '_bot'):
                 try:
-                    await self.bot._close_session()
+                    await self._get_bot()._close_session()
                 except Exception:
                     pass  # Ignore any errors during session close
-            
-            # Call parent's close() synchronously
+        
+        finally:
+            # Call parent's close
             super().close() 
