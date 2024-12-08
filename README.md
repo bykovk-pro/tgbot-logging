@@ -176,10 +176,50 @@ pip install -r requirements-dev.txt
 
 ## Testing
 
-Run tests with coverage report:
+The project includes several types of tests to ensure reliability and functionality:
+
+### Unit Tests
+
+Located in `tests/test_handler.py` and `tests/test_bot.py`:
+- `test_handler.py`: Tests for the TelegramHandler class functionality
+  - Message sending and formatting
+  - Batching and rate limiting
+  - Error handling and retries
+  - Signal handling and graceful shutdown
+  - Async context manager support
+
+- `test_bot.py`: Tests for the underlying Telegram bot functionality
+  - Bot initialization and configuration
+  - Message sending and error handling
+  - Rate limit handling
+  - Network error recovery
+
+### Example Usage and Integration Tests
+
+Located in `tests/examples.py`:
+- Complete examples of handler usage
+- Performance testing
+- Error recovery testing
+- Multi-project logging examples
+- Real-world usage scenarios
+
+To run the tests:
 
 ```bash
+# Run all tests with coverage report
 pytest -v --cov=tgbot_logging --cov-report=term-missing:skip-covered
+
+# Run specific test file
+pytest tests/test_handler.py -v
+
+# Run specific test
+pytest tests/test_handler.py::test_emit_single_message -v
+```
+
+For manual testing and examples, run:
+```bash
+# Set up environment variables in .env file first
+python tests/examples.py
 ```
 
 ## Contributing
