@@ -89,3 +89,8 @@ test.env
 logs/
 *.log
 *.log.*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
