@@ -1,5 +1,5 @@
 API Reference
-============
+=============
 
 This section provides detailed API documentation for the TGBot-Logging package.
 
@@ -13,12 +13,12 @@ TelegramHandler
    :special-members: __init__
 
 Configuration Options
--------------------
+--------------------
 
 The ``TelegramHandler`` class accepts the following parameters:
 
 Required Parameters
-~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 ``token`` (str)
     Telegram Bot API token obtained from @BotFather
@@ -27,7 +27,7 @@ Required Parameters
     Single chat ID or list of chat IDs where messages will be sent
 
 Optional Parameters
-~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 ``level`` (int)
     Minimum logging level (default: logging.NOTSET)
@@ -74,8 +74,11 @@ Optional Parameters
 ``datefmt`` (str)
     Custom date format for timestamps (default: None)
 
+``test_mode`` (bool)
+    Whether to run in test mode (default: False)
+
 Default Level Emojis
-------------------
+-------------------
 
 The handler comes with default emojis for different log levels:
 
@@ -90,7 +93,7 @@ The handler comes with default emojis for different log levels:
     }
 
 Custom Message Formatting
-----------------------
+-----------------------
 
 You can provide a custom message formatting function:
 
@@ -125,7 +128,7 @@ The context dictionary provides:
 * format_time function
 
 Error Handling
-------------
+-------------
 
 The handler includes built-in error handling for:
 
@@ -133,5 +136,20 @@ The handler includes built-in error handling for:
 * Network timeouts
 * Message sending failures
 * Invalid tokens or chat IDs
+* Graceful shutdown
 
-All errors are handled gracefully with automatic retries where appropriate. 
+All errors are handled gracefully with automatic retries where appropriate.
+
+Async Support
+------------
+
+The handler supports async/await syntax and can be used as an async context manager:
+
+.. code-block:: python
+
+    async with TelegramHandler(token='YOUR_BOT_TOKEN', chat_ids=['YOUR_CHAT_ID']) as handler:
+        logger = logging.getLogger('AsyncApp')
+        logger.addHandler(handler)
+        logger.info('This message will be sent asynchronously')
+
+The handler will automatically close and clean up resources when exiting the context. 

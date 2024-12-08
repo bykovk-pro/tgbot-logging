@@ -55,7 +55,9 @@ Run tests using pytest:
 
 .. code-block:: bash
 
-    pytest
+    pytest --cov=tgbot_logging --cov-report=term-missing
+
+Current code coverage is 92%. The uncovered lines are mostly related to error handling and edge cases.
 
 For manual testing, you can use the test bot script:
 
@@ -101,9 +103,9 @@ View the documentation:
     start _build/html/index.html  # Windows
 
 Building and Distribution
-----------------------
+-----------------------
 
-1. Update version in ``src/tgbot_logging/__init__.py``
+1. Update version in ``src/tgbot_logging/__init__.py`` and ``setup.py``
 
 2. Build the package:
 
@@ -127,16 +129,16 @@ Contributing
 5. Submit a pull request
 
 Pull Request Guidelines
---------------------
+---------------------
 
 * Include tests for new features
 * Update documentation as needed
-* Follow the existing code style
+* Follow the existing code style (black)
 * Write clear commit messages
 * Add yourself to CONTRIBUTORS.md
 
 Security
--------
+--------
 
 * Never commit sensitive data (tokens, passwords, etc.)
 * Use environment variables for configuration
@@ -147,15 +149,15 @@ Release Process
 -------------
 
 1. Update CHANGELOG.md
-2. Update version number
+2. Update version number in both __init__.py and setup.py
 3. Create release branch
-4. Run full test suite
+4. Run full test suite with coverage
 5. Build and test package
 6. Create GitHub release
 7. Upload to PyPI
 
 Troubleshooting
--------------
+--------------
 
 Common Issues
 ~~~~~~~~~~~~
@@ -179,7 +181,7 @@ Common Issues
    * Use correct data types
 
 Getting Help
-~~~~~~~~~~
+~~~~~~~~~~~
 
 * Open an issue on GitHub
 * Check existing issues

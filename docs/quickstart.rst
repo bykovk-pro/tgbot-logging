@@ -1,5 +1,5 @@
 Quick Start Guide
-===============
+================
 
 This guide will help you get started with TGBot-Logging quickly.
 
@@ -20,7 +20,13 @@ Setup
    * Open `@userinfobot <https://t.me/userinfobot>`_
    * Copy your chat ID (it's a number like ``123456789``)
 
-3. Configure environment variables:
+3. Install the package:
+
+   .. code-block:: bash
+
+       pip install tgbot-logging
+
+4. Configure environment variables:
    
    * Copy ``.env.example`` to ``.env``
    * Replace placeholder values with your actual credentials
@@ -53,6 +59,31 @@ Here's a minimal example to get you started:
     # Example usage
     logger.info('This is an info message')
     logger.error('This is an error message')
+
+Async Usage
+----------
+
+The handler supports async/await syntax:
+
+.. code-block:: python
+
+    import asyncio
+    import logging
+    from tgbot_logging import TelegramHandler
+
+    async def main():
+        async with TelegramHandler(
+            token='YOUR_BOT_TOKEN',
+            chat_ids=['YOUR_CHAT_ID']
+        ) as handler:
+            logger = logging.getLogger('AsyncApp')
+            logger.addHandler(handler)
+            logger.info('Starting async operation...')
+            await asyncio.sleep(1)
+            logger.info('Operation completed')
+
+    if __name__ == '__main__':
+        asyncio.run(main())
 
 Using Environment Variables
 -------------------------
@@ -106,9 +137,23 @@ MarkdownV2 Formatting:
 
     logger.info('Message with *bold text* and _italic text_')
 
+Message Batching
+--------------
+
+For better performance and to avoid rate limits:
+
+.. code-block:: python
+
+    handler = TelegramHandler(
+        token='YOUR_BOT_TOKEN',
+        chat_ids=['YOUR_CHAT_ID'],
+        batch_size=5,  # Send messages in batches of 5
+        batch_interval=1.0  # Wait up to 1 second to fill batch
+    )
+
 Next Steps
 ---------
 
-* Check out the :doc:`configuration` section for detailed configuration options
-* See :doc:`examples` for more advanced usage examples
-* Read the :doc:`api` documentation for complete API reference 
+* Check out the :doc:`examples` section for more advanced usage examples
+* Read the :doc:`api` documentation for complete API reference
+* See :doc:`development` guide for contributing to the project

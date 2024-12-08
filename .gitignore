@@ -48,6 +48,9 @@ test_logs/
 # Sphinx documentation
 docs/_build/
 docs/generated/
+docs/create_assets.py
+docs/_static/telegram-logo/
+docs/_static/python-logo/
 
 # Environments
 .env

@@ -1,5 +1,5 @@
 Welcome to TGBot-Logging's documentation!
-=====================================
+=========================================
 
 TGBot-Logging is a Python logging handler that sends log messages to Telegram chats with advanced features like message batching, retries, and formatting.
 
@@ -23,13 +23,10 @@ Features
    :maxdepth: 2
    :caption: Contents:
 
-   installation
    quickstart
-   configuration
-   examples
    api
+   examples
    development
-   changelog
 
 Installation
 -----------
@@ -50,9 +47,7 @@ For development with testing tools and code formatting:
 
 .. code-block:: bash
 
-    pip install tgbot-logging[dev]
-    # or
-    pip install -r requirements-dev.txt
+    pip install -e ".[dev]"
 
 Documentation Tools
 ~~~~~~~~~~~~~~~~~
@@ -61,7 +56,7 @@ For building documentation:
 
 .. code-block:: bash
 
-    pip install tgbot-logging[docs]
+    pip install -e ".[docs]"
 
 Build Tools
 ~~~~~~~~~~
@@ -70,7 +65,7 @@ For package building and distribution:
 
 .. code-block:: bash
 
-    pip install tgbot-logging[build]
+    pip install -e ".[build]"
 
 Full Installation
 ~~~~~~~~~~~~~~~
@@ -79,55 +74,52 @@ For all optional dependencies:
 
 .. code-block:: bash
 
-    pip install tgbot-logging[all]
+    pip install -e ".[all]"
 
 Features in Detail
 ----------------
 
 Message Formatting
-~~~~~~~~~~~~~~~
-
-* Support for HTML and MarkdownV2 formatting
-* Custom message formats with templates
-* Custom date/time formats
-* Project names and emojis
-* Automatic hashtags
-* Level-specific emojis
-
-Message Batching
-~~~~~~~~~~~~~
-
-* Configurable batch size
-* Configurable batch interval
-* Automatic batch flushing
-* Memory-efficient queue system
-
-Error Handling
-~~~~~~~~~~~
-
-* Automatic retries for failed messages
-* Rate limit handling
-* Network error handling
-* Timeout handling
-* Graceful error recovery
-
-Performance
-~~~~~~~~~
-
-* Asynchronous message sending
-* Message batching
-* Rate limiting
-* Memory optimization
-* Cross-platform compatibility
-
-Development Features
 ~~~~~~~~~~~~~~~~
 
-* Type hints for better IDE support
-* Comprehensive test suite (96% coverage)
-* Detailed documentation
-* Code style compliance (Black)
-* Security checks (Bandit)
+* HTML and MarkdownV2 support
+* Custom message formatting
+* Emoji support
+* Project name and hashtags
+
+Message Batching
+~~~~~~~~~~~~~~
+
+* Configurable batch size
+* Batch interval control
+* Automatic retry on failure
+* Rate limit handling
+
+Error Handling
+~~~~~~~~~~~~
+
+* Network timeouts
+* Rate limiting
+* Invalid tokens/chat IDs
+* Message sending failures
+* Graceful shutdown
+
+Performance
+~~~~~~~~~~
+
+* Async/await support
+* Message batching
+* Minimal memory footprint
+* Resource cleanup
+
+Development Features
+~~~~~~~~~~~~~~~~~
+
+* Type hints
+* Comprehensive tests
+* Code coverage (92%)
+* Black code style
+* Documentation
 
 Indices and tables
 ==================

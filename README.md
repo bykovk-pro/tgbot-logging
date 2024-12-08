@@ -4,7 +4,7 @@
 [![Python Support](https://img.shields.io/pypi/pyversions/tgbot-logging.svg)](https://pypi.org/project/tgbot-logging/)
 [![Documentation Status](https://readthedocs.org/projects/tgbot-logging/badge/?version=latest)](https://tgbot-logging.readthedocs.io/en/latest/?badge=latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Code Coverage](https://img.shields.io/badge/coverage-96%25-brightgreen.svg)](https://github.com/bykovk-pro/tgbot-logging)
+[![Code Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen.svg)](https://github.com/bykovk-pro/tgbot-logging)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 A Python logging handler that sends log messages to Telegram chats with advanced features like message batching, retries, and formatting.

@@ -14,7 +14,7 @@ Simple logging setup:
    :caption: examples/basic_usage.py
 
 Custom Message Formats
--------------------
+--------------------
 
 Different message formatting options:
 
@@ -24,7 +24,7 @@ Different message formatting options:
    :caption: examples/custom_format.py
 
 Time Formats
-----------
+-----------
 
 Various time formatting examples:
 
@@ -34,7 +34,7 @@ Various time formatting examples:
    :caption: examples/time_formats.py
 
 Multiple Projects
---------------
+---------------
 
 Example of using the handler with multiple projects:
 
@@ -71,7 +71,7 @@ Example of using the handler with multiple projects:
     projects['Database'][1].error('Replica connection error')
 
 Error Handling
-------------
+-------------
 
 Example with error handling and retries:
 
@@ -97,7 +97,7 @@ Example with error handling and retries:
         logger.exception('An error occurred:')
 
 Environment Variables
-------------------
+-------------------
 
 Using environment variables for configuration:
 
@@ -121,7 +121,7 @@ Using environment variables for configuration:
     )
 
 Custom Emoji Mapping
------------------
+------------------
 
 Customizing emojis for different log levels:
 
@@ -142,7 +142,7 @@ Customizing emojis for different log levels:
     )
 
 Async Usage
----------
+----------
 
 Using the handler in an async application:
 
