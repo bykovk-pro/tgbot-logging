@@ -41,16 +41,17 @@ from contextlib import asynccontextmanager
 SHUTDOWN_TIMEOUT = 30  # seconds
 FLUSH_TIMEOUT = 5  # seconds
 
+
 class TelegramHandler(logging.Handler):
     """A handler class which sends logging records to a Telegram chat using a bot."""
 
     # Default emoji mapping for different log levels
     DEFAULT_LEVEL_EMOJI = {
-        logging.DEBUG: '🔍',
-        logging.INFO: 'ℹ️',
-        logging.WARNING: '⚠️',
-        logging.ERROR: '❌',
-        logging.CRITICAL: '🚨',
+        logging.DEBUG: "🔍",
+        logging.INFO: "ℹ️",
+        logging.WARNING: "⚠️",
+        logging.ERROR: "❌",
+        logging.CRITICAL: "🚨",
     }
 
     def __init__(
@@ -59,25 +60,31 @@ class TelegramHandler(logging.Handler):
         chat_ids: Union[str, int, List[Union[str, int]]],
         level: int = logging.NOTSET,
         fmt: Optional[str] = None,
-        parse_mode: Optional[str] = 'HTML',
+        parse_mode: Optional[str] = "HTML",
         batch_size: int = 1,
         batch_interval: float = 1.0,
         max_retries: int = 3,
         retry_delay: float = 1.0,
         project_name: Optional[str] = None,
-        project_emoji: str = '🔷',
+        project_emoji: str = "🔷",
         add_hashtags: bool = True,
-        message_format: Optional[Callable[[logging.LogRecord, Dict[str, Any]], str]] = None,
+        message_format: Optional[
+            Callable[[logging.LogRecord, Dict[str, Any]], str]
+        ] = None,
         level_emojis: Optional[Dict[int, str]] = None,
         include_project_name: bool = True,
         include_level_emoji: bool = True,
         datefmt: Optional[str] = None,
-        test_mode: bool = False
+        test_mode: bool = False,
     ):
         """Initialize the handler."""
         super().__init__(level)
         self.token = token
-        self.chat_ids = [str(chat_ids)] if isinstance(chat_ids, (str, int)) else [str(cid) for cid in chat_ids]
+        self.chat_ids = (
+            [str(chat_ids)]
+            if isinstance(chat_ids, (str, int))
+            else [str(cid) for cid in chat_ids]
+        )
         self.parse_mode = parse_mode
         self.batch_size = max(1, batch_size)
         self.batch_interval = max(0.1, batch_interval)
@@ -103,7 +110,7 @@ class TelegramHandler(logging.Handler):
             raise InvalidToken(f"Invalid token: {str(e)}")
         except Exception as e:
             raise InvalidToken(f"Failed to initialize bot: {str(e)}")
-        
+
         # Shutdown flags
         self._is_shutting_down = Event()
         self._shutdown_complete = Event()
@@ -113,10 +120,12 @@ class TelegramHandler(logging.Handler):
         if fmt is not None:
             self.formatter = logging.Formatter(fmt, datefmt=self.datefmt)
         else:
-            self.formatter = logging.Formatter('%(message)s', datefmt=self.datefmt)
+            self.formatter = logging.Formatter("%(message)s", datefmt=self.datefmt)
 
         # Create time formatter
-        self.time_formatter = logging.Formatter(datefmt=self.datefmt) if self.datefmt else None
+        self.time_formatter = (
+            logging.Formatter(datefmt=self.datefmt) if self.datefmt else None
+        )
 
         # Initialize batching
         self.message_queue = defaultdict(Queue)
@@ -195,13 +204,16 @@ class TelegramHandler(logging.Handler):
                 messages = []
                 try:
                     # Get all available messages from the queue
-                    while not self.message_queue[chat_id].empty() and len(messages) < self.batch_size:
+                    while (
+                        not self.message_queue[chat_id].empty()
+                        and len(messages) < self.batch_size
+                    ):
                         messages.append(self.message_queue[chat_id].get_nowait())
                         self.message_queue[chat_id].task_done()
 
                     if messages:
                         # Join messages with double newline
-                        text = '\n\n'.join(messages)
+                        text = "\n\n".join(messages)
                         try:
                             await self._send_message(chat_id, text)
                         except Exception as e:
@@ -225,9 +237,7 @@ class TelegramHandler(logging.Handler):
         while retries <= self.max_retries:
             try:
                 await self._bot.send_message(
-                    chat_id=chat_id,
-                    text=text,
-                    parse_mode=self.parse_mode
+                    chat_id=chat_id, text=text, parse_mode=self.parse_mode
                 )
                 return  # Success
             except RetryAfter as e:
@@ -253,8 +263,7 @@ class TelegramHandler(logging.Handler):
             if not self._is_shutting_down.is_set():
                 # Process queues
                 asyncio.run_coroutine_threadsafe(
-                    self._process_queue(),
-                    self.loop
+                    self._process_queue(), self.loop
                 ).result()
 
     def _run_event_loop(self) -> None:
@@ -279,9 +288,7 @@ class TelegramHandler(logging.Handler):
         if self.test_mode:
             asyncio.create_task(self.close())
         else:
-            self.loop.call_soon_threadsafe(
-                lambda: asyncio.create_task(self.close())
-            )
+            self.loop.call_soon_threadsafe(lambda: asyncio.create_task(self.close()))
 
     async def close(self) -> None:
         """
@@ -293,7 +300,7 @@ class TelegramHandler(logging.Handler):
             return
 
         self._is_shutting_down.set()
-        
+
         try:
             # Force process remaining messages
             self._force_batch = True
@@ -303,7 +310,7 @@ class TelegramHandler(logging.Handler):
 
         try:
             # Close bot
-            if hasattr(self._bot, 'close'):
+            if hasattr(self._bot, "close"):
                 await self._bot.close()
         except Exception as e:
             print(f"Error closing bot: {str(e)}")
@@ -312,7 +319,9 @@ class TelegramHandler(logging.Handler):
         if not self.test_mode and self.loop and self.executor:
             self.loop.call_soon_threadsafe(self.loop.stop)
             # Schedule executor shutdown in a separate thread to avoid deadlock
-            Thread(target=self.executor.shutdown, kwargs={'wait': True}, daemon=True).start()
+            Thread(
+                target=self.executor.shutdown, kwargs={"wait": True}, daemon=True
+            ).start()
 
         self._closed = True
         self._shutdown_complete.set()
