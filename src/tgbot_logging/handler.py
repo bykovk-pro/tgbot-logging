@@ -26,7 +26,9 @@ import logging
 import asyncio
 import time
 import sys
-from typing import Optional, Union, List, Dict, Callable, Any
+import signal
+import threading
+from typing import Optional, Union, List, Dict, Callable, Any, NoReturn
 from collections import defaultdict
 from telegram import Bot
 from telegram.error import TelegramError, RetryAfter, TimedOut, InvalidToken
@@ -34,6 +36,9 @@ from queue import Queue
 from threading import Thread, Lock, Event
 from concurrent.futures import ThreadPoolExecutor
 
+# Constants for shutdown
+SHUTDOWN_TIMEOUT = 30  # seconds
+FLUSH_TIMEOUT = 5  # seconds
 
 class TelegramHandler(logging.Handler):
     """A handler class which sends logging records to a Telegram chat using a bot."""
@@ -90,6 +95,10 @@ class TelegramHandler(logging.Handler):
 
         # Initialize bot
         self._bot = Bot(token=token)
+        
+        # Shutdown flags
+        self._is_shutting_down = threading.Event()
+        self._shutdown_complete = threading.Event()
 
         # Set formatter with custom date format
         if fmt is not None:
@@ -121,11 +130,131 @@ class TelegramHandler(logging.Handler):
             self.batch_thread: Optional[Thread] = Thread(target=self._batch_sender, daemon=True)
             if self.batch_thread:
                 self.batch_thread.start()
+
+            # Setup signal handlers
+            self._setup_signal_handlers()
         else:
             # In test mode, use the current event loop
             self.loop = asyncio.get_event_loop()
             self.executor = None
             self.batch_thread = None
+
+    def _setup_signal_handlers(self) -> None:
+        """Setup signal handlers for graceful shutdown."""
+        def signal_handler(signum: int, frame: Any) -> None:
+            # Log signal received
+            print(f"Received signal {signum}, initiating graceful shutdown...", 
+                  file=sys.stderr)
+            
+            # Initiate shutdown
+            self._initiate_shutdown()
+
+        # Register handlers for common signals
+        for sig in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP):
+            try:
+                signal.signal(sig, signal_handler)
+            except ValueError as e:
+                # Log if we can't set signal handler (e.g., in a thread)
+                print(f"Could not set handler for signal {sig}: {e}", 
+                      file=sys.stderr)
+
+    def _initiate_shutdown(self) -> None:
+        """Initiate graceful shutdown process."""
+        if not self._is_shutting_down.is_set():
+            self._is_shutting_down.set()
+            try:
+                # Run shutdown in the event loop
+                if hasattr(self, 'loop') and self.loop:
+                    asyncio.run_coroutine_threadsafe(
+                        self._shutdown(), self.loop
+                    )
+            except Exception as e:
+                print(f"Error during shutdown initiation: {e}", 
+                      file=sys.stderr)
+
+    async def _shutdown(self) -> None:
+        """Perform graceful shutdown."""
+        try:
+            # Flush remaining messages
+            await self._flush_all_queues()
+
+            # Close bot session
+            if self._bot:
+                try:
+                    await self._bot.close()
+                except Exception as e:
+                    print(f"Error closing bot session: {e}", 
+                          file=sys.stderr)
+
+            # Stop event loop
+            if hasattr(self, 'loop') and self.loop:
+                self.loop.stop()
+
+            # Clean up executor
+            if self.executor:
+                self.executor.shutdown(wait=True)
+
+            self._shutdown_complete.set()
+        except Exception as e:
+            print(f"Error during shutdown: {e}", 
+                  file=sys.stderr)
+
+    async def _flush_all_queues(self) -> None:
+        """Flush all message queues."""
+        try:
+            async with self.batch_lock:
+                for chat_id in self.chat_ids:
+                    queue = self.message_queue[chat_id]
+                    while not queue.empty():
+                        messages = []
+                        try:
+                            while not queue.empty() and len(messages) < self.batch_size:
+                                messages.append(queue.get_nowait())
+                        except Exception:
+                            break
+
+                        if messages:
+                            try:
+                                await self._send_batch(chat_id, messages)
+                            except Exception as e:
+                                print(f"Error sending final batch to {chat_id}: {e}", 
+                                      file=sys.stderr)
+        except Exception as e:
+            print(f"Error flushing queues: {e}", 
+                  file=sys.stderr)
+
+    async def close(self) -> None:
+        """Close the handler and clean up resources."""
+        if self._closed:
+            return
+
+        self._closed = True
+        self._is_shutting_down.set()
+
+        try:
+            # Wait for shutdown to complete with timeout
+            shutdown_task = asyncio.create_task(self._shutdown())
+            try:
+                await asyncio.wait_for(shutdown_task, timeout=SHUTDOWN_TIMEOUT)
+            except asyncio.TimeoutError:
+                print("Shutdown timed out", file=sys.stderr)
+
+        except Exception as e:
+            print(f"Error during handler close: {e}", 
+                  file=sys.stderr)
+        finally:
+            # Ensure parent class close is called
+            super().close()
+
+    def __del__(self) -> None:
+        """Ensure resources are cleaned up."""
+        if not self._closed:
+            if self.loop and self.loop.is_running():
+                self.loop.call_soon_threadsafe(
+                    lambda: asyncio.create_task(self.close())
+                )
+            else:
+                asyncio.run(self.close())
 
     def _get_bot(self) -> Bot:
         """Get the bot instance."""
@@ -294,100 +423,150 @@ class TelegramHandler(logging.Handler):
                 await asyncio.sleep(self.min_message_interval)
 
     def _batch_sender(self) -> None:
-        """Background thread for sending batched messages."""
-        while not self._closed or any(not q.empty() for q in self.message_queue.values()):
+        """Background task to periodically flush queues."""
+        while not self._closed and not self._is_shutting_down.is_set():
             try:
-                messages_to_send: Dict[str, List[str]] = defaultdict(list)
-
-                # Collect messages from queues
-                with self.batch_lock:
-                    for chat_id in self.chat_ids:
-                        chat_id_str = str(chat_id)
-                        queue = self.message_queue[chat_id_str]
-
-                        # Get up to batch_size messages
-                        while (
-                            len(messages_to_send[chat_id_str]) < self.batch_size
-                            and not queue.empty()
-                        ):
-                            messages_to_send[chat_id_str].append(queue.get())
-
-                # Send collected messages
-                for chat_id, messages in messages_to_send.items():
-                    if messages:
-                        message = '\n'.join(messages)
-
-                        # Send message
-                        future = asyncio.run_coroutine_threadsafe(
-                            self._send_message_async(chat_id, message),
+                # Wait for batch interval or event
+                self.batch_event.wait(timeout=self.batch_interval)
+                self.batch_event.clear()
+                
+                # Skip if shutting down
+                if self._is_shutting_down.is_set():
+                    break
+                    
+                # Flush all queues
+                for chat_id in self.chat_ids:
+                    if self.message_queue[chat_id].qsize() > 0:
+                        asyncio.run_coroutine_threadsafe(
+                            self._flush_queue(chat_id), 
                             self.loop
                         )
-                        future.result()  # Wait for send to complete
-
-                # Wait for more messages or batch interval
-                if not self._closed:
-                    self.batch_event.wait(self.batch_interval)
-                    self.batch_event.clear()
-
+                        
             except Exception as e:
-                print(f"Error in batch sender: {str(e)}")
-                if not self._closed:
-                    time.sleep(self.retry_delay)
+                print(f"Error in batch sender: {e}", 
+                      file=sys.stderr)
+                
+        # Final flush on shutdown
+        if self._is_shutting_down.is_set():
+            try:
+                asyncio.run_coroutine_threadsafe(
+                    self._flush_all_queues(), 
+                    self.loop
+                ).result(timeout=FLUSH_TIMEOUT)
+            except Exception as e:
+                print(f"Error in final flush: {e}", 
+                      file=sys.stderr)
 
     async def emit(self, record: logging.LogRecord) -> None:
-        """Emit a record."""
-        if self._closed:
+        """Emit a record.
+
+        Format the record and put it in the batch queue.
+        When the queue reaches batch_size, trigger a send.
+        """
+        if self._closed or self._is_shutting_down.is_set():
             return
 
         try:
-            message = self._format_message(record)
+            msg = self._format_message(record)
+            
+            # Split message if it's too long
+            messages = self._split_message(msg)
+            
+            for chat_id in self.chat_ids:
+                for message_part in messages:
+                    await self._add_to_queue(chat_id, message_part)
+                    
+        except Exception as e:
+            print(f"Error in emit: {e}", file=sys.stderr)
+            self.handleError(record)
 
-            if self.test_mode:
-                # In test mode, send messages immediately
-                for chat_id in self.chat_ids:
-                    await self._send_message_async(str(chat_id), message)
-            else:
-                # In normal mode, use batching
-                for chat_id in self.chat_ids:
-                    chat_id_str = str(chat_id)
-                    with self.batch_lock:
-                        self.message_queue[chat_id_str].put(message)
-                    self.batch_event.set()
+    async def _add_to_queue(self, chat_id: Union[str, int], message: str) -> None:
+        """Add message to queue and flush if needed."""
+        try:
+            async with self.batch_lock:
+                queue = self.message_queue[chat_id]
+                queue.put_nowait(message)
+                
+                # Check if we need to flush
+                if queue.qsize() >= self.batch_size:
+                    await self._flush_queue(chat_id)
+                    
+        except Exception as e:
+            print(f"Error adding message to queue for {chat_id}: {e}", 
+                  file=sys.stderr)
 
-        except Exception:
-            self.handleError(record)  # Use standard error handling
+    async def _flush_queue(self, chat_id: Union[str, int]) -> None:
+        """Flush queue for specific chat_id."""
+        try:
+            async with self.batch_lock:
+                queue = self.message_queue[chat_id]
+                messages = []
+                
+                # Get all messages from queue
+                while not queue.empty() and len(messages) < self.batch_size:
+                    try:
+                        messages.append(queue.get_nowait())
+                    except Exception:
+                        break
+                        
+                if messages:
+                    await self._send_batch(chat_id, messages)
+                    
+        except Exception as e:
+            print(f"Error flushing queue for {chat_id}: {e}", 
+                  file=sys.stderr)
 
-    async def close(self) -> None:
-        """
-        Close the handler.
-
-        This will:
-        1. Mark the handler as closed
-        2. Wait for all queued messages to be sent
-        3. Stop the batch sender thread
-        4. Close the bot session
-        """
-        if self._closed:
+    async def _send_batch(self, chat_id: Union[str, int], messages: List[str]) -> None:
+        """Send a batch of messages with retries."""
+        if not messages:
             return
-
-        self._closed = True
-
-        if not self.test_mode:
-            # Wait for batch sender to finish
-            if self.batch_thread and self.batch_thread.is_alive():
-                self.batch_event.set()  # Wake up batch sender
-                self.batch_thread.join()
-
-            # Stop event loop
-            if self.executor:
-                self.loop.call_soon_threadsafe(self.loop.stop)
-                self.executor.shutdown()
-
-        # Close bot session
-        bot = self._get_bot()
-        if bot:
+            
+        message = '\n\n'.join(messages)
+        retry_count = 0
+        
+        while retry_count <= self.max_retries:
             try:
-                await bot.close()
-            except Exception:
-                # Log error but don't raise it
-                print("Error closing bot session")
+                # Rate limiting
+                now = time.time()
+                if now - self.last_message_time < self.min_message_interval:
+                    await asyncio.sleep(self.min_message_interval)
+                
+                # Send message
+                await self._bot.send_message(
+                    chat_id=chat_id,
+                    text=message,
+                    parse_mode=self.parse_mode
+                )
+                self.last_message_time = time.time()
+                return
+                
+            except RetryAfter as e:
+                # Handle rate limiting
+                await asyncio.sleep(e.retry_after)
+                
+            except TimedOut:
+                # Handle timeouts
+                await asyncio.sleep(self.retry_delay)
+                
+            except Exception as e:
+                print(f"Error sending batch to {chat_id} (attempt {retry_count + 1}/{self.max_retries + 1}): {e}", 
+                      file=sys.stderr)
+                if retry_count == self.max_retries:
+                    break
+                await asyncio.sleep(self.retry_delay)
+                
+            retry_count += 1
+
+    async def __aenter__(self) -> 'TelegramHandler':
+        """Async context manager entry."""
+        return self
+
+    async def __aexit__(self, exc_type: Optional[type], exc_val: Optional[Exception], 
+                        exc_tb: Optional[Any]) -> None:
+        """Async context manager exit."""
+        await self.close()
+        
+        # Log any errors that occurred
+        if exc_type is not None:
+            print(f"Error during context exit: {exc_val}", 
+                  file=sys.stderr)

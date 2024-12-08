@@ -19,7 +19,8 @@ A Python logging handler that sends log messages to Telegram chats with advanced
 - Customizable log format and emojis
 - Support for project names and hashtags
 - Environment variables support
-- Async/await support
+- Async/await support with context manager
+- Graceful shutdown with signal handling
 - Cross-platform compatibility
 - Type hints and documentation
 - 96% test coverage
@@ -73,7 +74,20 @@ telegram_handler = TelegramHandler(
 )
 ```
 
-4. Environment variables support:
+4. Using async context manager:
+```python
+async with TelegramHandler(
+    token='YOUR_BOT_TOKEN',
+    chat_ids=['YOUR_CHAT_ID'],
+    level=logging.INFO
+) as handler:
+    logger = logging.getLogger('MyApp')
+    logger.addHandler(handler)
+    logger.info('This message will be sent before context exit')
+# Handler will be properly closed after context exit
+```
+
+5. Environment variables support:
 ```bash
 # .env file
 TELEGRAM_BOT_TOKEN=your_bot_token
@@ -115,6 +129,7 @@ Full documentation is available at [tgbot-logging.readthedocs.io](https://tgbot-
 - Configurable batch interval
 - Automatic batch flushing
 - Memory-efficient queue system
+- Per-chat batching
 
 ### Error Handling
 
@@ -123,6 +138,7 @@ Full documentation is available at [tgbot-logging.readthedocs.io](https://tgbot-
 - Network error handling
 - Timeout handling
 - Graceful error recovery
+- Per-chat error isolation
 
 ### Performance
 
@@ -131,6 +147,14 @@ Full documentation is available at [tgbot-logging.readthedocs.io](https://tgbot-
 - Rate limiting
 - Memory optimization
 - Cross-platform compatibility
+
+### Shutdown Handling
+
+- Graceful shutdown support
+- Signal handling (SIGTERM, SIGINT, SIGHUP)
+- Message queue flushing before exit
+- Resource cleanup
+- Async context manager support
 
 ### Development Features
 

@@ -11,6 +11,8 @@ from telegram import Bot
 from telegram.error import RetryAfter, NetworkError, TelegramError, TimedOut, InvalidToken
 from tgbot_logging import TelegramHandler
 import sys
+import signal
+import time
 
 # Load test environment variables
 load_dotenv('tests/.env.test')
@@ -19,6 +21,8 @@ load_dotenv('tests/.env.test')
 TEST_TOKEN = "test_token"
 TEST_CHAT_ID = "123456789"
 TEST_MESSAGE = "Test message"
+TEST_BATCH_SIZE = 5
+TEST_BATCH_INTERVAL = 0.1
 
 @pytest.fixture
 async def mock_bot():
@@ -38,8 +42,8 @@ async def handler(mock_bot):
         token='test_token',  # Use a test token to avoid InvalidToken error
         chat_ids=['123456789'],  # Use a test chat ID
         level=logging.INFO,
-        batch_size=2,
-        batch_interval=0.1,
+        batch_size=TEST_BATCH_SIZE,
+        batch_interval=TEST_BATCH_INTERVAL,
         test_mode=True  # Enable test mode
     )
     # Replace the bot instance with our mock
@@ -54,8 +58,8 @@ async def test_handler_initialization(handler):
     assert handler.token == 'test_token'
     assert handler.chat_ids == ['123456789']
     assert handler.level == logging.INFO
-    assert handler.batch_size == 2
-    assert handler.batch_interval == 0.1
+    assert handler.batch_size == TEST_BATCH_SIZE
+    assert handler.batch_interval == TEST_BATCH_INTERVAL
     assert handler.test_mode is True
     assert handler.executor is None
     assert handler.batch_thread is None
@@ -995,7 +999,8 @@ async def test_message_format_with_custom_context(handler, mock_bot):
         if context['level_emojis']:
             parts.append(context['level_emojis'].get(record.levelno, '🔵'))
         parts.append(f"[{record.levelname}]")
-        parts.append(f"[{context['format_time']()}]")
+        # Use time formatter from context
+        parts.append(f"[{context['time_formatter'].formatTime(record)}]")
         parts.append(record.getMessage())
         return ' '.join(parts)
     
@@ -1904,3 +1909,204 @@ async def test_error_handling_with_batch_retry_and_error_and_rate_limit(mock_bot
         assert mock_bot.send_message.call_count == handler.max_retries + 1
     finally:
         await handler.close()
+
+@pytest.mark.asyncio
+async def test_graceful_shutdown(handler):
+    """Test graceful shutdown with message flushing."""
+    # Mock bot methods
+    handler._bot.send_message = AsyncMock()
+    handler._bot.close = AsyncMock()
+    
+    # Add some messages
+    for i in range(10):
+        record = logging.LogRecord(
+            name="test",
+            level=logging.INFO,
+            pathname="test.py",
+            lineno=1,
+            msg=f"Message {i}",
+            args=(),
+            exc_info=None
+        )
+        await handler.emit(record)
+    
+    # Trigger shutdown
+    await handler.close()
+    
+    # Check that all messages were sent
+    assert handler._bot.send_message.call_count >= 2  # At least 2 batches
+    assert handler._bot.close.call_count == 1
+    assert handler._closed
+    assert handler._is_shutting_down.is_set()
+    assert handler._shutdown_complete.is_set()
+
+@pytest.mark.asyncio
+async def test_signal_handling(handler):
+    """Test signal handling."""
+    # Mock methods
+    handler._bot.send_message = AsyncMock()
+    handler._bot.close = AsyncMock()
+    
+    # Add some messages
+    record = logging.LogRecord(
+        name="test",
+        level=logging.INFO,
+        pathname="test.py",
+        lineno=1,
+        msg="Test message",
+        args=(),
+        exc_info=None
+    )
+    await handler.emit(record)
+    
+    # Simulate SIGTERM
+    with patch('signal.signal') as mock_signal:
+        handler._setup_signal_handlers()
+        # Get the signal handler
+        signal_handler = mock_signal.call_args_list[0][0][1]
+        # Call it with SIGTERM
+        signal_handler(signal.SIGTERM, None)
+        
+        # Wait for shutdown
+        await asyncio.sleep(0.1)
+        
+        # Check shutdown was initiated
+        assert handler._is_shutting_down.is_set()
+        assert handler._bot.send_message.called
+        assert handler._bot.close.called
+
+@pytest.mark.asyncio
+async def test_async_context_manager():
+    """Test async context manager."""
+    async with TelegramHandler(
+        token=TEST_TOKEN,
+        chat_ids=TEST_CHAT_ID,
+        test_mode=True
+    ) as handler:
+        # Mock methods
+        handler._bot.send_message = AsyncMock()
+        handler._bot.close = AsyncMock()
+        
+        # Add a message
+        record = logging.LogRecord(
+            name="test",
+            level=logging.INFO,
+            pathname="test.py",
+            lineno=1,
+            msg="Test message",
+            args=(),
+            exc_info=None
+        )
+        await handler.emit(record)
+        
+        # Check message was queued
+        assert any(not q.empty() for q in handler.message_queue.values())
+    
+    # Check cleanup after context exit
+    assert handler._closed
+    assert handler._is_shutting_down.is_set()
+    assert handler._bot.close.called
+
+@pytest.mark.asyncio
+async def test_error_handling_per_chat(handler):
+    """Test error handling for each chat separately."""
+    # Mock bot method to fail for one chat but succeed for another
+    async def mock_send_message(chat_id, **kwargs):
+        if chat_id == "123":
+            raise TimedOut()
+        return True
+    
+    handler._bot.send_message = AsyncMock(side_effect=mock_send_message)
+    handler.chat_ids = ["123", "456"]
+    
+    # Add messages
+    record = logging.LogRecord(
+        name="test",
+        level=logging.INFO,
+        pathname="test.py",
+        lineno=1,
+        msg="Test message",
+        args=(),
+        exc_info=None
+    )
+    
+    # Send to both chats
+    await handler.emit(record)
+    await asyncio.sleep(0.2)  # Wait for async processing
+    
+    # Check that one chat failed but the other succeeded
+    assert handler._bot.send_message.call_count >= 2  # At least one retry for failed chat
+
+@pytest.mark.asyncio
+async def test_rate_limiting(handler):
+    """Test rate limiting and retry mechanism."""
+    # Mock bot method to simulate rate limiting
+    calls = 0
+    async def mock_send_message(**kwargs):
+        nonlocal calls
+        calls += 1
+        if calls <= 2:  # First two calls hit rate limit
+            raise RetryAfter(retry_after=0.1)
+        return True
+    
+    handler._bot.send_message = AsyncMock(side_effect=mock_send_message)
+    
+    # Add message
+    record = logging.LogRecord(
+        name="test",
+        level=logging.INFO,
+        pathname="test.py",
+        lineno=1,
+        msg="Test message",
+        args=(),
+        exc_info=None
+    )
+    
+    # Send message
+    await handler.emit(record)
+    await asyncio.sleep(0.3)  # Wait for retries
+    
+    # Check retries
+    assert calls >= 3  # Initial + 2 retries
+
+@pytest.mark.asyncio
+async def test_message_batching(handler):
+    """Test message batching mechanism."""
+    handler._bot.send_message = AsyncMock()
+    
+    # Add messages just under batch size
+    for i in range(TEST_BATCH_SIZE - 1):
+        record = logging.LogRecord(
+            name="test",
+            level=logging.INFO,
+            pathname="test.py",
+            lineno=1,
+            msg=f"Message {i}",
+            args=(),
+            exc_info=None
+        )
+        await handler.emit(record)
+    
+    # Check not sent yet
+    assert handler._bot.send_message.call_count == 0
+    
+    # Add one more message to trigger batch
+    record = logging.LogRecord(
+        name="test",
+        level=logging.INFO,
+        pathname="test.py",
+        lineno=1,
+        msg="Final message",
+        args=(),
+        exc_info=None
+    )
+    await handler.emit(record)
+    
+    # Wait for batch processing
+    await asyncio.sleep(0.2)
+    
+    # Check batch was sent
+    assert handler._bot.send_message.call_count == 1
+    # Check message format
+    call_args = handler._bot.send_message.call_args[1]
+    assert len(call_args['text'].split('\n\n')) == TEST_BATCH_SIZE
