@@ -94,7 +94,15 @@ class TelegramHandler(logging.Handler):
         self.test_mode = test_mode
 
         # Initialize bot
-        self._bot = Bot(token=token)
+        try:
+            self._bot = Bot(token=token)
+            # Try to validate token by getting bot info
+            if not test_mode:
+                asyncio.run(self._bot.get_me())
+        except InvalidToken as e:
+            raise InvalidToken(f"Invalid token: {str(e)}")
+        except Exception as e:
+            raise InvalidToken(f"Failed to initialize bot: {str(e)}")
         
         # Shutdown flags
         self._is_shutting_down = Event()

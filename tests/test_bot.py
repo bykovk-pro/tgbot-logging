@@ -38,7 +38,8 @@ async def test_bot_initialization():
     """Test bot initialization."""
     bot = Bot(TEST_TOKEN)
     assert bot.token == TEST_TOKEN
-    await bot.close()
+    assert isinstance(bot, Bot)
+    # No need to close the bot here as it's just testing initialization
 
 @pytest.mark.asyncio
 async def test_bot_get_me(mock_bot):
